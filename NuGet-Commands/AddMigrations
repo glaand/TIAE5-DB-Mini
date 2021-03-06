@@ -1,2 +1,0 @@
-EntityFrameworkCore\Add-Migration TIAE5_DB_Mini.Models.AppContext
-EntityFrameworkCore\Update-Database
