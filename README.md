@@ -27,7 +27,7 @@ If you are using a different database connection string locally, do not commit t
 ## See all available routes
 If you want to see all available routes, please visit go to the following URL Path:
 
-`<hostname>/api/`
+`<hostname>/`
 
 You should see something like this:
-![](https://i.imgur.com/Vldhd0E.png)
+![](https://i.imgur.com/mZ4o5Jp.png)
