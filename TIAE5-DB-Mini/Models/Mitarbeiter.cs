@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TIAE5_DB_Mini.Models
 {
     public class Mitarbeiter : Beteiligte
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int mitarbeiterId { get; set; }
 
         public int badgeNummer { get; set; }

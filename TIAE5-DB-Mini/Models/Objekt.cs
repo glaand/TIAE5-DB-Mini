@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TIAE5_DB_Mini.Models
 {
     public class Objekt
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int objektId { get; set; }
 
         public double laengengrad { get; set; }
@@ -15,6 +17,6 @@ namespace TIAE5_DB_Mini.Models
         public double breite { get; set; }
         public double flache { get; set; }
 
-        public List<Gefaehrdung> gefaehrdung { get; set; }
+        public List<Gefaehrdung> gefaehrdungs { get; set; }
   }
 }

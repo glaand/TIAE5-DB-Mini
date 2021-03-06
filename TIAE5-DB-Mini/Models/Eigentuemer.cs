@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TIAE5_DB_Mini.Models
 {
     public class Eigentuemer : Beteiligte
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int eigentuemerId { get; set; }
 
         public bool juristischePerson { get; set; }
 
-        public Beteiligte beteiligte { get; set; }
+        public Beteiligte beteiligtes { get; set; }
     }
 }
