@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TIAE5-DB-Mini", "TIAE5-DB-Mini.csproj", "{A51953BD-3179-4136-9A74-D78243B3A3F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A51953BD-3179-4136-9A74-D78243B3A3F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A51953BD-3179-4136-9A74-D78243B3A3F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A51953BD-3179-4136-9A74-D78243B3A3F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A51953BD-3179-4136-9A74-D78243B3A3F2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE8569EC-68ED-40A5-BECC-EC24B8AC8EDA}
+	EndGlobalSection
+EndGlobal

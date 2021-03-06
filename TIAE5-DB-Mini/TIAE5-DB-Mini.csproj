@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>TIAE5_DB_Mini</RootNamespace>
+  </PropertyGroup>
+
+
+</Project>
