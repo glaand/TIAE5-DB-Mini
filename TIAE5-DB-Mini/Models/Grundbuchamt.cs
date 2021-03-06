@@ -11,12 +11,11 @@ namespace TIAE5_DB_Mini.Models
     [Table("grundbuchamt")]
     public class Grundbuchamt : Beteiligte
     {
-        public int grundbuchamtId { get; set; }
-
-        [Required]
-        public String amtskennung { get; set; }
 
         [JsonIgnore]
         public Beteiligte beteiligte { get; set; }
+
+        [Required]
+        public String amtskennung { get; set; }
     }
 }

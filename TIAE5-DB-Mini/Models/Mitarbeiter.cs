@@ -11,15 +11,14 @@ namespace TIAE5_DB_Mini.Models
     [Table("mitarbeiter")]
     public class Mitarbeiter : Beteiligte
     {
-        public int mitarbeiterId { get; set; }
+
+        [JsonIgnore]
+        public Beteiligte beteiligte { get; set; }
 
         [Required]
         public int badgeNummer { get; set; }
 
         [Required]
         public float lohnProMonat { get; set; }
-
-        [JsonIgnore]
-        public Beteiligte beteiligte { get; set; }
     }
 }

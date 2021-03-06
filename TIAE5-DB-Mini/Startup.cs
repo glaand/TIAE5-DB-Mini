@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TIAE5_DB_Mini.Models;
-
 namespace TIAE5_DB_Mini
 {
     public class Startup

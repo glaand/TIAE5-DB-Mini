@@ -22,16 +22,18 @@ namespace TIAE5_DB_Mini.Controllers
 
         // GET: api/Eigentuemers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Eigentuemer>>> Geteigentuemers()
+        [ActionName("GET_ALL")]
+        public async Task<ActionResult<IEnumerable<Eigentuemer>>> GET_ALL()
         {
             return await _context.eigentuemers.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).ToListAsync();
         }
 
         // GET: api/Eigentuemers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Eigentuemer>> GetEigentuemer(int id)
+        [ActionName("GET_ONE")]
+        public async Task<ActionResult<Eigentuemer>> GET_ONE(int id)
         {
-            var eigentuemer = await _context.eigentuemers.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.eigentuemerId == id);
+            var eigentuemer = await _context.eigentuemers.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.beteiligteId == id);
 
             if (eigentuemer == null)
             {
@@ -39,71 +41,39 @@ namespace TIAE5_DB_Mini.Controllers
             }
 
             return eigentuemer;
-        }
-
-        // PUT: api/Eigentuemers/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutEigentuemer(int id, Eigentuemer eigentuemer)
-        {
-            if (id != eigentuemer.beteiligteId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(eigentuemer).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EigentuemerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // POST: api/Eigentuemers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Eigentuemer>> PostEigentuemer(Eigentuemer eigentuemer)
+        [ActionName("POST")]
+        public async Task<ActionResult<Eigentuemer>> POST(Eigentuemer eigentuemer)
         {
+            List<Objekt> listOfObjets = new List<Objekt>();
+
+            if (eigentuemer.objekts != null)
+            {
+                foreach (Objekt temp in eigentuemer.objekts)
+                {
+                    Objekt found = await this._context.objekts.FindAsync(temp.objektId);
+                    if (found != null)
+                    {
+                        listOfObjets.Add(found);
+                    }
+                    else
+                    {
+                        throw new Exception("Objekt existiert nicht. Bitte Objekt zuerst erstellen.");
+                    }
+                }
+            }
+
+            eigentuemer.objekts = listOfObjets;
+
             _context.eigentuemers.Add(eigentuemer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEigentuemer", new { id = eigentuemer.beteiligteId }, eigentuemer);
-        }
-
-        // DELETE: api/Eigentuemers/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Eigentuemer>> DeleteEigentuemer(int id)
-        {
-            var eigentuemer = await _context.eigentuemers.FindAsync(id);
-            if (eigentuemer == null)
-            {
-                return NotFound();
-            }
-
-            _context.eigentuemers.Remove(eigentuemer);
-            await _context.SaveChangesAsync();
-
-            return eigentuemer;
-        }
-
-        private bool EigentuemerExists(int id)
-        {
-            return _context.eigentuemers.Any(e => e.beteiligteId == id);
+            return CreatedAtAction("GET_ONE", new { id = eigentuemer.beteiligteId }, eigentuemer);
         }
     }
 }

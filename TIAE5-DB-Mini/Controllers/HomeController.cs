@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace TIAE5_DB_Mini.Controllers
 {
-    [Route("api")]
+    [Route("")]
     [ApiController]
     public class HomeController : ControllerBase
     {
@@ -21,10 +21,7 @@ namespace TIAE5_DB_Mini.Controllers
         public IActionResult Index()
         {
             var urls = this.provider.ActionDescriptors.Items
-                .Select(descriptor => '/' + string.Join('/', descriptor.RouteValues.Values
-                                                                                .Where(v => v != null)
-                                                                                .Select(c => c.ToLower())
-                                                                                .Reverse()))
+                .Select(descriptor => string.Join(" --> ", descriptor.RouteValues.Values.Where(v => v != null) ))
                 .Distinct()
                 .ToList();
 

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TIAE5_DB_Mini.Models;
 
 namespace TIAE5_DB_Mini.Migrations
 {
     [DbContext(typeof(CaseStudyContext))]
-    partial class CaseStudyContextModelSnapshot : ModelSnapshot
+    [Migration("20210306221354_TIAE5_DB_Mini.Models.AppContext1")]
+    partial class TIAE5_DB_MiniModelsAppContext1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

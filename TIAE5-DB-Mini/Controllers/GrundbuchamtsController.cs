@@ -22,16 +22,18 @@ namespace TIAE5_DB_Mini.Controllers
 
         // GET: api/Grundbuchamts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Grundbuchamt>>> Getgrundbuchamts()
+        [ActionName("GET_ALL")]
+        public async Task<ActionResult<IEnumerable<Grundbuchamt>>> GET_ALL()
         {
             return await _context.grundbuchamts.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).ToListAsync();
         }
 
         // GET: api/Grundbuchamts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Grundbuchamt>> GetGrundbuchamt(int id)
+        [ActionName("GET_ONE")]
+        public async Task<ActionResult<Grundbuchamt>> GET_ONE(int id)
         {
-            var grundbuchamt = await _context.grundbuchamts.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.grundbuchamtId == id);
+            var grundbuchamt = await _context.grundbuchamts.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.beteiligteId == id);
 
             if (grundbuchamt == null)
             {
@@ -39,71 +41,40 @@ namespace TIAE5_DB_Mini.Controllers
             }
 
             return grundbuchamt;
-        }
-
-        // PUT: api/Grundbuchamts/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutGrundbuchamt(int id, Grundbuchamt grundbuchamt)
-        {
-            if (id != grundbuchamt.beteiligteId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(grundbuchamt).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GrundbuchamtExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // POST: api/Grundbuchamts
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Grundbuchamt>> PostGrundbuchamt(Grundbuchamt grundbuchamt)
+        [ActionName("POST")]
+        public async Task<ActionResult<Grundbuchamt>> POST(Grundbuchamt grundbuchamt)
         {
+
+            List<Objekt> listOfObjets = new List<Objekt>();
+
+            if (grundbuchamt.objekts != null)
+            {
+                foreach (Objekt temp in grundbuchamt.objekts)
+                {
+                    Objekt found = await this._context.objekts.FindAsync(temp.objektId);
+                    if (found != null)
+                    {
+                        listOfObjets.Add(found);
+                    }
+                    else
+                    {
+                        throw new Exception("Objekt existiert nicht. Bitte Objekt zuerst erstellen.");
+                    }
+                }
+            }
+
+            grundbuchamt.objekts = listOfObjets;
+
             _context.grundbuchamts.Add(grundbuchamt);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGrundbuchamt", new { id = grundbuchamt.beteiligteId }, grundbuchamt);
-        }
-
-        // DELETE: api/Grundbuchamts/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Grundbuchamt>> DeleteGrundbuchamt(int id)
-        {
-            var grundbuchamt = await _context.grundbuchamts.FindAsync(id);
-            if (grundbuchamt == null)
-            {
-                return NotFound();
-            }
-
-            _context.grundbuchamts.Remove(grundbuchamt);
-            await _context.SaveChangesAsync();
-
-            return grundbuchamt;
-        }
-
-        private bool GrundbuchamtExists(int id)
-        {
-            return _context.grundbuchamts.Any(e => e.beteiligteId == id);
+            return CreatedAtAction("GET_ONE", new { id = grundbuchamt.beteiligteId }, grundbuchamt);
         }
     }
 }

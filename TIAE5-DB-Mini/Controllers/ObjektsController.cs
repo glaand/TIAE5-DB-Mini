@@ -22,14 +22,16 @@ namespace TIAE5_DB_Mini.Controllers
 
         // GET: api/Objekts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Objekt>>> Getobjekts()
+        [ActionName("GET_ALL")]
+        public async Task<ActionResult<IEnumerable<Objekt>>> GET_ALL()
         {
             return await _context.objekts.Include(t => t.gefaehrdungs).ToListAsync();
         }
 
         // GET: api/Objekts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Objekt>> GetObjekt(int id)
+        [ActionName("GET_ONE")]
+        public async Task<ActionResult<Objekt>> GET_ONE(int id)
         {
             var objekt = await _context.objekts.Include(t => t.gefaehrdungs).FirstOrDefaultAsync(i => i.objektId == id);
 
@@ -45,11 +47,31 @@ namespace TIAE5_DB_Mini.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutObjekt(int id, Objekt objekt)
+        [ActionName("PUT")]
+        public async Task<IActionResult> PUT(int id, Objekt objekt)
         {
             if (id != objekt.objektId)
             {
                 return BadRequest();
+            }
+
+            List<Gefaehrdung> listOfGefaehrdungs = new List<Gefaehrdung>();
+
+            if (objekt.gefaehrdungs != null)
+            {
+                foreach (Gefaehrdung g in objekt.gefaehrdungs)
+                {
+                    Gefaehrdung found = await this._context.gefaehrdungs.FindAsync(g.gefaehrdungId);
+                    if (found != null)
+                    {
+                        listOfGefaehrdungs.Add(found);
+                    }
+                    else
+                    {
+                        throw new Exception("Gefährdung existiert nicht. Bitte Gefährdung zuerst erstellen.");
+                    }
+                }
+                objekt.gefaehrdungs = listOfGefaehrdungs;
             }
 
             _context.Entry(objekt).State = EntityState.Modified;
@@ -77,28 +99,33 @@ namespace TIAE5_DB_Mini.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Objekt>> PostObjekt(Objekt objekt)
+        [ActionName("POST")]
+        public async Task<ActionResult<Objekt>> POST(Objekt objekt)
         {
+            List<Gefaehrdung> listOfGefaehrdungs = new List<Gefaehrdung>();
+
+            if (objekt.gefaehrdungs != null)
+            {
+                foreach (Gefaehrdung g in objekt.gefaehrdungs)
+                {
+                    Gefaehrdung found = await this._context.gefaehrdungs.FindAsync(g.gefaehrdungId);
+                    if (found != null)
+                    {
+                        listOfGefaehrdungs.Add(found);
+                    }
+                    else
+                    {
+                        throw new Exception("Gefährdung existiert nicht. Bitte Gefährdung zuerst erstellen.");
+                    }
+                }
+            }
+
+            objekt.gefaehrdungs = listOfGefaehrdungs;
+
             _context.objekts.Add(objekt);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetObjekt", new { id = objekt.objektId }, objekt);
-        }
-
-        // DELETE: api/Objekts/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Objekt>> DeleteObjekt(int id)
-        {
-            var objekt = await _context.objekts.FindAsync(id);
-            if (objekt == null)
-            {
-                return NotFound();
-            }
-
-            _context.objekts.Remove(objekt);
-            await _context.SaveChangesAsync();
-
-            return objekt;
+            return CreatedAtAction("GET_ONE", new { id = objekt.objektId }, objekt);
         }
 
         private bool ObjektExists(int id)

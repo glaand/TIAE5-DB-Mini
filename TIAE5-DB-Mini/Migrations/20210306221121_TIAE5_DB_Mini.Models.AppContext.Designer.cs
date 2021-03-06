@@ -10,7 +10,7 @@ using TIAE5_DB_Mini.Models;
 namespace TIAE5_DB_Mini.Migrations
 {
     [DbContext(typeof(CaseStudyContext))]
-    [Migration("20210306173424_TIAE5_DB_Mini.Models.AppContext")]
+    [Migration("20210306221121_TIAE5_DB_Mini.Models.AppContext")]
     partial class TIAE5_DB_MiniModelsAppContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -188,9 +188,6 @@ namespace TIAE5_DB_Mini.Migrations
                     b.Property<int?>("beteiligtesbeteiligteId")
                         .HasColumnType("int");
 
-                    b.Property<int>("eigentuemerId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("juristischePerson")
                         .HasColumnType("bit");
 
@@ -204,7 +201,6 @@ namespace TIAE5_DB_Mini.Migrations
                             beteiligteId = 1,
                             nachname = "Gehring",
                             vorname = "Sven",
-                            eigentuemerId = 1,
                             juristischePerson = true
                         });
                 });
@@ -220,9 +216,6 @@ namespace TIAE5_DB_Mini.Migrations
                     b.Property<int?>("beteiligteId1")
                         .HasColumnType("int");
 
-                    b.Property<int>("grundbuchamtId")
-                        .HasColumnType("int");
-
                     b.HasIndex("beteiligteId1");
 
                     b.ToTable("grundbuchamt");
@@ -233,8 +226,7 @@ namespace TIAE5_DB_Mini.Migrations
                             beteiligteId = 3,
                             nachname = "Müller",
                             vorname = "Lukas",
-                            amtskennung = "ZH Hochbau",
-                            grundbuchamtId = 3
+                            amtskennung = "ZH Hochbau"
                         });
                 });
 
@@ -251,9 +243,6 @@ namespace TIAE5_DB_Mini.Migrations
                     b.Property<float>("lohnProMonat")
                         .HasColumnType("real");
 
-                    b.Property<int>("mitarbeiterId")
-                        .HasColumnType("int");
-
                     b.HasIndex("beteiligteId1");
 
                     b.ToTable("mitarbeiter");
@@ -265,8 +254,7 @@ namespace TIAE5_DB_Mini.Migrations
                             nachname = "Glatzl",
                             vorname = "André",
                             badgeNummer = 1000,
-                            lohnProMonat = 5000f,
-                            mitarbeiterId = 2
+                            lohnProMonat = 5000f
                         });
                 });
 

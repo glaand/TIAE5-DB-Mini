@@ -47,9 +47,8 @@ namespace TIAE5_DB_Mini.Migrations
                 columns: table => new
                 {
                     beteiligteId = table.Column<int>(type: "int", nullable: false),
-                    eigentuemerId = table.Column<int>(type: "int", nullable: false),
-                    juristischePerson = table.Column<bool>(type: "bit", nullable: false),
-                    beteiligtesbeteiligteId = table.Column<int>(type: "int", nullable: true)
+                    beteiligtesbeteiligteId = table.Column<int>(type: "int", nullable: true),
+                    juristischePerson = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,9 +72,8 @@ namespace TIAE5_DB_Mini.Migrations
                 columns: table => new
                 {
                     beteiligteId = table.Column<int>(type: "int", nullable: false),
-                    grundbuchamtId = table.Column<int>(type: "int", nullable: false),
-                    amtskennung = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    beteiligteId1 = table.Column<int>(type: "int", nullable: true)
+                    beteiligteId1 = table.Column<int>(type: "int", nullable: true),
+                    amtskennung = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,10 +97,9 @@ namespace TIAE5_DB_Mini.Migrations
                 columns: table => new
                 {
                     beteiligteId = table.Column<int>(type: "int", nullable: false),
-                    mitarbeiterId = table.Column<int>(type: "int", nullable: false),
+                    beteiligteId1 = table.Column<int>(type: "int", nullable: true),
                     badgeNummer = table.Column<int>(type: "int", nullable: false),
-                    lohnProMonat = table.Column<float>(type: "real", nullable: false),
-                    beteiligteId1 = table.Column<int>(type: "int", nullable: true)
+                    lohnProMonat = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -119,6 +116,30 @@ namespace TIAE5_DB_Mini.Migrations
                         principalTable: "beteiligtes",
                         principalColumn: "beteiligteId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BeteiligteObjekt",
+                columns: table => new
+                {
+                    beteiligtesbeteiligteId = table.Column<int>(type: "int", nullable: false),
+                    objektsobjektId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BeteiligteObjekt", x => new { x.beteiligtesbeteiligteId, x.objektsobjektId });
+                    table.ForeignKey(
+                        name: "FK_BeteiligteObjekt_beteiligtes_beteiligtesbeteiligteId",
+                        column: x => x.beteiligtesbeteiligteId,
+                        principalTable: "beteiligtes",
+                        principalColumn: "beteiligteId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BeteiligteObjekt_objekts_objektsobjektId",
+                        column: x => x.objektsobjektId,
+                        principalTable: "objekts",
+                        principalColumn: "objektId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -168,8 +189,8 @@ namespace TIAE5_DB_Mini.Migrations
 
             migrationBuilder.InsertData(
                 table: "eigentuemer",
-                columns: new[] { "beteiligteId", "beteiligtesbeteiligteId", "eigentuemerId", "juristischePerson" },
-                values: new object[] { 1, null, 1, true });
+                columns: new[] { "beteiligteId", "beteiligtesbeteiligteId", "juristischePerson" },
+                values: new object[] { 1, null, true });
 
             migrationBuilder.InsertData(
                 table: "gefaehrdungs",
@@ -183,47 +204,13 @@ namespace TIAE5_DB_Mini.Migrations
 
             migrationBuilder.InsertData(
                 table: "grundbuchamt",
-                columns: new[] { "beteiligteId", "amtskennung", "beteiligteId1", "grundbuchamtId" },
-                values: new object[] { 3, "ZH Hochbau", null, 3 });
+                columns: new[] { "beteiligteId", "amtskennung", "beteiligteId1" },
+                values: new object[] { 3, "ZH Hochbau", null });
 
             migrationBuilder.InsertData(
                 table: "mitarbeiter",
-                columns: new[] { "beteiligteId", "badgeNummer", "beteiligteId1", "lohnProMonat", "mitarbeiterId" },
-                values: new object[] { 2, 1000, null, 5000f, 2 });
-
-            migrationBuilder.CreateTable(
-               name: "BeteiligteObjekt",
-               columns: table => new
-               {
-                   beteiligtesbeteiligteId = table.Column<int>(type: "int", nullable: false),
-                   objektsobjektId = table.Column<int>(type: "int", nullable: false)
-               },
-               constraints: table =>
-               {
-                   table.PrimaryKey("PK_BeteiligteObjekt", x => new { x.beteiligtesbeteiligteId, x.objektsobjektId });
-                   table.ForeignKey(
-                       name: "FK_BeteiligteObjekt_beteiligtes_beteiligtesbeteiligteId",
-                       column: x => x.beteiligtesbeteiligteId,
-                       principalTable: "beteiligtes",
-                       principalColumn: "beteiligteId",
-                       onDelete: ReferentialAction.Cascade);
-                   table.ForeignKey(
-                       name: "FK_BeteiligteObjekt_objekts_objektsobjektId",
-                       column: x => x.objektsobjektId,
-                       principalTable: "objekts",
-                       principalColumn: "objektId",
-                       onDelete: ReferentialAction.Cascade);
-               });
-
-            migrationBuilder.InsertData(
-                table: "BeteiligteObjekt",
-                columns: new[] { "beteiligtesbeteiligteId", "objektsobjektId" },
-                values: new object[,]
-                {
-                    { 1, 1 },
-                    { 2, 2 },
-                    { 3, 3 }
-                });
+                columns: new[] { "beteiligteId", "badgeNummer", "beteiligteId1", "lohnProMonat" },
+                values: new object[] { 2, 1000, null, 5000f });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BeteiligteObjekt_objektsobjektId",

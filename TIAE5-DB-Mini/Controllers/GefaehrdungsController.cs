@@ -22,14 +22,16 @@ namespace TIAE5_DB_Mini.Controllers
 
         // GET: api/Gefaehrdungs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Gefaehrdung>>> Getgefaehrdungs()
+        [ActionName("GET_ALL")]
+        public async Task<ActionResult<IEnumerable<Gefaehrdung>>> GET_ALL()
         {
             return await _context.gefaehrdungs.ToListAsync();
         }
 
         // GET: api/Gefaehrdungs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Gefaehrdung>> GetGefaehrdung(int id)
+        [ActionName("GET_ONE")]
+        public async Task<ActionResult<Gefaehrdung>> GET_ONE(int id)
         {
             var gefaehrdung = await _context.gefaehrdungs.FindAsync(id);
 
@@ -41,53 +43,23 @@ namespace TIAE5_DB_Mini.Controllers
             return gefaehrdung;
         }
 
-        // PUT: api/Gefaehrdungs/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutGefaehrdung(int id, Gefaehrdung gefaehrdung)
-        {
-            if (id != gefaehrdung.gefaehrdungId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(gefaehrdung).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GefaehrdungExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/Gefaehrdungs
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Gefaehrdung>> PostGefaehrdung(Gefaehrdung gefaehrdung)
+        [ActionName("POST")]
+        public async Task<ActionResult<Gefaehrdung>> POST(Gefaehrdung gefaehrdung)
         {
             _context.gefaehrdungs.Add(gefaehrdung);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGefaehrdung", new { id = gefaehrdung.gefaehrdungId }, gefaehrdung);
+            return CreatedAtAction("GET_ONE", new { id = gefaehrdung.gefaehrdungId }, gefaehrdung);
         }
 
         // DELETE: api/Gefaehrdungs/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Gefaehrdung>> DeleteGefaehrdung(int id)
+        [ActionName("DELETE")]
+        public async Task<ActionResult<Gefaehrdung>> DELETE(int id)
         {
             var gefaehrdung = await _context.gefaehrdungs.FindAsync(id);
             if (gefaehrdung == null)

@@ -11,12 +11,9 @@ namespace TIAE5_DB_Mini.Models
     [Table("eigentuemer")]
     public class Eigentuemer : Beteiligte
     {
-        public int eigentuemerId { get; set; }
-
-        [Required]
-        public bool juristischePerson { get; set; }
-
         [JsonIgnore]
         public Beteiligte beteiligtes { get; set; }
+        [Required]
+        public bool juristischePerson { get; set; }
     }
 }

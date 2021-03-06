@@ -22,14 +22,16 @@ namespace TIAE5_DB_Mini.Controllers
 
         // GET: api/Beteiligtes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Beteiligte>>> Getbeteiligtes()
+        [ActionName("GET_ALL")]
+        public async Task<ActionResult<IEnumerable<Beteiligte>>> GET_All()
         {
             return await _context.beteiligtes.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).ToListAsync();
         }
 
         // GET: api/Beteiligtes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Beteiligte>> GetBeteiligte(int id)
+        [ActionName("GET_ONE")]
+        public async Task<ActionResult<Beteiligte>> GET_ONE(int id)
         {
             var beteiligte = await _context.beteiligtes.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.beteiligteId == id);
 
@@ -41,64 +43,37 @@ namespace TIAE5_DB_Mini.Controllers
             return beteiligte;
         }
 
-        // PUT: api/Beteiligtes/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBeteiligte(int id, Beteiligte beteiligte)
-        {
-            if (id != beteiligte.beteiligteId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(beteiligte).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BeteiligteExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/Beteiligtes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Beteiligte>> PostBeteiligte(Beteiligte beteiligte)
+        [ActionName("POST")]
+        public async Task<ActionResult<Beteiligte>> POST(Beteiligte model)
         {
-            _context.beteiligtes.Add(beteiligte);
-            await _context.SaveChangesAsync();
+            List<Objekt> listOfObjets = new List<Objekt>();
 
-            return CreatedAtAction("GetBeteiligte", new { id = beteiligte.beteiligteId }, beteiligte);
-        }
-
-        // DELETE: api/Beteiligtes/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Beteiligte>> DeleteBeteiligte(int id)
-        {
-            var beteiligte = await _context.beteiligtes.FindAsync(id);
-            if (beteiligte == null)
+            if (model.objekts != null)
             {
-                return NotFound();
+                foreach (Objekt temp in model.objekts)
+                {
+                    Objekt found = await this._context.objekts.FindAsync(temp.objektId);
+                    if (found != null)
+                    {
+                        listOfObjets.Add(found);
+                    }
+                    else
+                    {
+                        throw new Exception("Objekt existiert nicht. Bitte Objekt zuerst erstellen.");
+                    }
+                }
             }
 
-            _context.beteiligtes.Remove(beteiligte);
+            model.objekts = listOfObjets;
+
+            _context.beteiligtes.Add(model);
             await _context.SaveChangesAsync();
 
-            return beteiligte;
+            return CreatedAtAction("GET_ONE", new { id = model.beteiligteId }, model);
         }
 
         private bool BeteiligteExists(int id)
