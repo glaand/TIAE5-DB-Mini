@@ -10,7 +10,7 @@ using TIAE5_DB_Mini.Models;
 namespace TIAE5_DB_Mini.Migrations
 {
     [DbContext(typeof(CaseStudyContext))]
-    [Migration("20210306132245_TIAE5_DB_Mini.Models.AppContext")]
+    [Migration("20210306133223_TIAE5_DB_Mini.Models.AppContext")]
     partial class TIAE5_DB_MiniModelsAppContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,15 +21,27 @@ namespace TIAE5_DB_Mini.Migrations
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("BeteiligteObjekt", b =>
+                {
+                    b.Property<int>("beteiligtesbeteiligteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("objektsobjektId")
+                        .HasColumnType("int");
+
+                    b.HasKey("beteiligtesbeteiligteId", "objektsobjektId");
+
+                    b.HasIndex("objektsobjektId");
+
+                    b.ToTable("BeteiligteObjekt");
+                });
+
             modelBuilder.Entity("TIAE5_DB_Mini.Models.Beteiligte", b =>
                 {
                     b.Property<int>("beteiligteId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("gefaehrdungId")
-                        .HasColumnType("int");
 
                     b.Property<string>("nachname")
                         .HasColumnType("nvarchar(max)");
@@ -38,8 +50,6 @@ namespace TIAE5_DB_Mini.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("beteiligteId");
-
-                    b.HasIndex("gefaehrdungId");
 
                     b.ToTable("beteiligtes");
                 });
@@ -77,9 +87,6 @@ namespace TIAE5_DB_Mini.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("beteiligteId")
-                        .HasColumnType("int");
-
                     b.Property<double>("breite")
                         .HasColumnType("float");
 
@@ -96,8 +103,6 @@ namespace TIAE5_DB_Mini.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("objektId");
-
-                    b.HasIndex("beteiligteId");
 
                     b.ToTable("objekts");
                 });
@@ -159,11 +164,19 @@ namespace TIAE5_DB_Mini.Migrations
                     b.ToTable("mitarbeiter");
                 });
 
-            modelBuilder.Entity("TIAE5_DB_Mini.Models.Beteiligte", b =>
+            modelBuilder.Entity("BeteiligteObjekt", b =>
                 {
-                    b.HasOne("TIAE5_DB_Mini.Models.Gefaehrdung", null)
-                        .WithMany("beteiligtes")
-                        .HasForeignKey("gefaehrdungId");
+                    b.HasOne("TIAE5_DB_Mini.Models.Beteiligte", null)
+                        .WithMany()
+                        .HasForeignKey("beteiligtesbeteiligteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TIAE5_DB_Mini.Models.Objekt", null)
+                        .WithMany()
+                        .HasForeignKey("objektsobjektId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TIAE5_DB_Mini.Models.Gefaehrdung", b =>
@@ -171,13 +184,6 @@ namespace TIAE5_DB_Mini.Migrations
                     b.HasOne("TIAE5_DB_Mini.Models.Objekt", null)
                         .WithMany("gefaehrdungs")
                         .HasForeignKey("objektId");
-                });
-
-            modelBuilder.Entity("TIAE5_DB_Mini.Models.Objekt", b =>
-                {
-                    b.HasOne("TIAE5_DB_Mini.Models.Beteiligte", null)
-                        .WithMany("objekts")
-                        .HasForeignKey("beteiligteId");
                 });
 
             modelBuilder.Entity("TIAE5_DB_Mini.Models.Eigentuemer", b =>
@@ -223,16 +229,6 @@ namespace TIAE5_DB_Mini.Migrations
                         .HasForeignKey("beteiligteId1");
 
                     b.Navigation("beteiligte");
-                });
-
-            modelBuilder.Entity("TIAE5_DB_Mini.Models.Beteiligte", b =>
-                {
-                    b.Navigation("objekts");
-                });
-
-            modelBuilder.Entity("TIAE5_DB_Mini.Models.Gefaehrdung", b =>
-                {
-                    b.Navigation("beteiligtes");
                 });
 
             modelBuilder.Entity("TIAE5_DB_Mini.Models.Objekt", b =>

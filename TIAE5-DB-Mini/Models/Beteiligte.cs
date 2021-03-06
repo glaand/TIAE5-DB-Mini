@@ -16,6 +16,6 @@ namespace TIAE5_DB_Mini.Models
         public String vorname { get; set; }
         public String nachname { get; set; }
 
-        public List<Objekt> objekts { get; set; }
+        public ICollection<Objekt> objekts { get; set; }
     }
 }

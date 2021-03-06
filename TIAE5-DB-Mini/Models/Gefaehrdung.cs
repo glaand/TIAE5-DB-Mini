@@ -14,7 +14,5 @@ namespace TIAE5_DB_Mini.Models
         public UInt16 gefaehrdungsstufe { get; set; }
         public String beschreibung { get; set; }
         public bool hatVerfuegung { get; set; }
-
-        public List<Beteiligte> beteiligtes { get; set; }
   }
 }

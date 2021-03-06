@@ -17,6 +17,7 @@ namespace TIAE5_DB_Mini.Models
         public double breite { get; set; }
         public double flache { get; set; }
 
-        public List<Gefaehrdung> gefaehrdungs { get; set; }
+        public ICollection<Gefaehrdung> gefaehrdungs { get; set; }
+        public ICollection<Beteiligte> beteiligtes { get; set; }
   }
 }
