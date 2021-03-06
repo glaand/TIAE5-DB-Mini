@@ -5,5 +5,9 @@
     <RootNamespace>TIAE5_DB_Mini</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+  </ItemGroup>
+
 
 </Project>
