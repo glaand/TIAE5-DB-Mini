@@ -1,0 +1,2 @@
+Add-Migration TIAE5_DB_Mini.Models.AppContext
+update-database
