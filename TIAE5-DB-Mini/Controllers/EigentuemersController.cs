@@ -24,14 +24,14 @@ namespace TIAE5_DB_Mini.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Eigentuemer>>> Geteigentuemers()
         {
-            return await _context.eigentuemers.ToListAsync();
+            return await _context.eigentuemers.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).ToListAsync();
         }
 
         // GET: api/Eigentuemers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Eigentuemer>> GetEigentuemer(int id)
         {
-            var eigentuemer = await _context.eigentuemers.FindAsync(id);
+            var eigentuemer = await _context.eigentuemers.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.eigentuemerId == id);
 
             if (eigentuemer == null)
             {

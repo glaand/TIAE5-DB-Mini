@@ -24,14 +24,14 @@ namespace TIAE5_DB_Mini.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Grundbuchamt>>> Getgrundbuchamts()
         {
-            return await _context.grundbuchamts.ToListAsync();
+            return await _context.grundbuchamts.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).ToListAsync();
         }
 
         // GET: api/Grundbuchamts/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Grundbuchamt>> GetGrundbuchamt(int id)
         {
-            var grundbuchamt = await _context.grundbuchamts.FindAsync(id);
+            var grundbuchamt = await _context.grundbuchamts.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.grundbuchamtId == id);
 
             if (grundbuchamt == null)
             {

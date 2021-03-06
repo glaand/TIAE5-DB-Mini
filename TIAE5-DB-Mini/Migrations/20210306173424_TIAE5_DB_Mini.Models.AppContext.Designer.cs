@@ -10,7 +10,7 @@ using TIAE5_DB_Mini.Models;
 namespace TIAE5_DB_Mini.Migrations
 {
     [DbContext(typeof(CaseStudyContext))]
-    [Migration("20210306143832_TIAE5_DB_Mini.Models.AppContext")]
+    [Migration("20210306173424_TIAE5_DB_Mini.Models.AppContext")]
     partial class TIAE5_DB_MiniModelsAppContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,26 +54,6 @@ namespace TIAE5_DB_Mini.Migrations
                     b.HasKey("beteiligteId");
 
                     b.ToTable("beteiligtes");
-
-                    b.HasData(
-                        new
-                        {
-                            beteiligteId = 1,
-                            nachname = "Gehring",
-                            vorname = "Sven"
-                        },
-                        new
-                        {
-                            beteiligteId = 2,
-                            nachname = "Glatzl",
-                            vorname = "André"
-                        },
-                        new
-                        {
-                            beteiligteId = 3,
-                            nachname = "Müller",
-                            vorname = "Lukas"
-                        });
                 });
 
             modelBuilder.Entity("TIAE5_DB_Mini.Models.Gefaehrdung", b =>
@@ -106,7 +86,33 @@ namespace TIAE5_DB_Mini.Migrations
 
                     b.HasCheckConstraint("CK_Gefaehrdung_Stufe_Min", "[gefaehrdungsstufe] > 0");
 
-                    b.HasCheckConstraint("CK_Gefaehrdung_Stufe_Max", "[gefaehrdungsstufe] <= 0");
+                    b.HasCheckConstraint("CK_Gefaehrdung_Stufe_Max", "[gefaehrdungsstufe] <= 10");
+
+                    b.HasData(
+                        new
+                        {
+                            gefaehrdungId = 1,
+                            beschreibung = "bla",
+                            gefaehrdungsstufe = 1,
+                            hatVerfuegung = true,
+                            objektId = 1
+                        },
+                        new
+                        {
+                            gefaehrdungId = 2,
+                            beschreibung = "bla bla",
+                            gefaehrdungsstufe = 2,
+                            hatVerfuegung = false,
+                            objektId = 2
+                        },
+                        new
+                        {
+                            gefaehrdungId = 3,
+                            beschreibung = "bla bla bla",
+                            gefaehrdungsstufe = 3,
+                            hatVerfuegung = true,
+                            objektId = 3
+                        });
                 });
 
             modelBuilder.Entity("TIAE5_DB_Mini.Models.Objekt", b =>
@@ -191,6 +197,16 @@ namespace TIAE5_DB_Mini.Migrations
                     b.HasIndex("beteiligtesbeteiligteId");
 
                     b.ToTable("eigentuemer");
+
+                    b.HasData(
+                        new
+                        {
+                            beteiligteId = 1,
+                            nachname = "Gehring",
+                            vorname = "Sven",
+                            eigentuemerId = 1,
+                            juristischePerson = true
+                        });
                 });
 
             modelBuilder.Entity("TIAE5_DB_Mini.Models.Grundbuchamt", b =>
@@ -210,6 +226,16 @@ namespace TIAE5_DB_Mini.Migrations
                     b.HasIndex("beteiligteId1");
 
                     b.ToTable("grundbuchamt");
+
+                    b.HasData(
+                        new
+                        {
+                            beteiligteId = 3,
+                            nachname = "Müller",
+                            vorname = "Lukas",
+                            amtskennung = "ZH Hochbau",
+                            grundbuchamtId = 3
+                        });
                 });
 
             modelBuilder.Entity("TIAE5_DB_Mini.Models.Mitarbeiter", b =>
@@ -231,6 +257,17 @@ namespace TIAE5_DB_Mini.Migrations
                     b.HasIndex("beteiligteId1");
 
                     b.ToTable("mitarbeiter");
+
+                    b.HasData(
+                        new
+                        {
+                            beteiligteId = 2,
+                            nachname = "Glatzl",
+                            vorname = "André",
+                            badgeNummer = 1000,
+                            lohnProMonat = 5000f,
+                            mitarbeiterId = 2
+                        });
                 });
 
             modelBuilder.Entity("BeteiligteObjekt", b =>

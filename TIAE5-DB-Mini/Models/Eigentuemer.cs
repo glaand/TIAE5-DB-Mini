@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace TIAE5_DB_Mini.Models
 {
@@ -15,6 +16,7 @@ namespace TIAE5_DB_Mini.Models
         [Required]
         public bool juristischePerson { get; set; }
 
+        [JsonIgnore]
         public Beteiligte beteiligtes { get; set; }
     }
 }

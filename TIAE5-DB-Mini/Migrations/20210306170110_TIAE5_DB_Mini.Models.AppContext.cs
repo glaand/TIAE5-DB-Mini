@@ -161,7 +161,7 @@ namespace TIAE5_DB_Mini.Migrations
                     table.PrimaryKey("PK_gefaehrdungs", x => x.gefaehrdungId);
                     table.CheckConstraint("CK_Gefaehrdung_Stufe", "[gefaehrdungsstufe] > 0 AND [gefaehrdungsstufe] <= 10");
                     table.CheckConstraint("CK_Gefaehrdung_Stufe_Min", "[gefaehrdungsstufe] > 0");
-                    table.CheckConstraint("CK_Gefaehrdung_Stufe_Max", "[gefaehrdungsstufe] <= 0");
+                    table.CheckConstraint("CK_Gefaehrdung_Stufe_Max", "[gefaehrdungsstufe] <= 10");
                     table.ForeignKey(
                         name: "FK_gefaehrdungs_objekts_objektId",
                         column: x => x.objektId,
@@ -176,8 +176,8 @@ namespace TIAE5_DB_Mini.Migrations
                 values: new object[,]
                 {
                     { 1, "Gehring", "Sven" },
-                    { 2, "Glatzl", "André" },
-                    { 3, "Müller", "Lukas" }
+                    { 3, "Müller", "Lukas" },
+                    { 2, "Glatzl", "André" }
                 });
 
             migrationBuilder.InsertData(
@@ -189,6 +189,31 @@ namespace TIAE5_DB_Mini.Migrations
                     { 2, 90.0, 80.0, 130.0, 110.0, 80.0 },
                     { 3, 100.0, 70.0, 140.0, 120.0, 70.0 }
                 });
+
+            migrationBuilder.InsertData(
+                table: "eigentuemer",
+                columns: new[] { "beteiligteId", "beteiligtesbeteiligteId", "eigentuemerId", "juristischePerson" },
+                values: new object[] { 1, null, 1, true });
+
+            migrationBuilder.InsertData(
+                table: "gefaehrdungs",
+                columns: new[] { "gefaehrdungId", "beschreibung", "gefaehrdungsstufe", "hatVerfuegung", "objektId" },
+                values: new object[,]
+                {
+                    { 1, "bla", 1, true, 1 },
+                    { 2, "bla bla", 2, false, 2 },
+                    { 3, "bla bla bla", 3, true, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "grundbuchamt",
+                columns: new[] { "beteiligteId", "amtskennung", "beteiligteId1", "grundbuchamtId" },
+                values: new object[] { 3, "ZH Hochbau", null, 3 });
+
+            migrationBuilder.InsertData(
+                table: "mitarbeiter",
+                columns: new[] { "beteiligteId", "badgeNummer", "beteiligteId1", "lohnProMonat", "mitarbeiterId" },
+                values: new object[] { 2, 1000, null, 5000f, 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BeteiligteObjekt_objektsobjektId",

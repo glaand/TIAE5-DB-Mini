@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace TIAE5_DB_Mini.Models
 {
@@ -15,6 +16,7 @@ namespace TIAE5_DB_Mini.Models
         [Required]
         public String amtskennung { get; set; }
 
+        [JsonIgnore]
         public Beteiligte beteiligte { get; set; }
     }
 }

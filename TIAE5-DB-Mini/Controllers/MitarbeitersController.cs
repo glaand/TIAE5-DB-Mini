@@ -24,14 +24,14 @@ namespace TIAE5_DB_Mini.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Mitarbeiter>>> Getmitarbeiters()
         {
-            return await _context.mitarbeiters.ToListAsync();
+            return await _context.mitarbeiters.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).ToListAsync();
         }
 
         // GET: api/Mitarbeiters/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Mitarbeiter>> GetMitarbeiter(int id)
         {
-            var mitarbeiter = await _context.mitarbeiters.FindAsync(id);
+            var mitarbeiter = await _context.mitarbeiters.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.mitarbeiterId == id);
 
             if (mitarbeiter == null)
             {

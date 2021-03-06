@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace TIAE5_DB_Mini.Models
 {
@@ -27,6 +28,7 @@ namespace TIAE5_DB_Mini.Models
         public double flache { get; set; }
 
         public ICollection<Gefaehrdung> gefaehrdungs { get; set; }
+        [JsonIgnore]
         public ICollection<Beteiligte> beteiligtes { get; set; }
   }
 }
