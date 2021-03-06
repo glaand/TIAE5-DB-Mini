@@ -12,6 +12,7 @@ namespace TIAE5_DB_Mini.Models
     {
         public int grundbuchamtId { get; set; }
 
+        [Required]
         public String amtskennung { get; set; }
 
         public Beteiligte beteiligte { get; set; }

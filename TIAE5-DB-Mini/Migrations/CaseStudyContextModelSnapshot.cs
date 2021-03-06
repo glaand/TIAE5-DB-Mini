@@ -42,9 +42,11 @@ namespace TIAE5_DB_Mini.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("nachname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("vorname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("beteiligteId");
@@ -60,6 +62,7 @@ namespace TIAE5_DB_Mini.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("beschreibung")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("gefaehrdungsstufe")
@@ -76,6 +79,8 @@ namespace TIAE5_DB_Mini.Migrations
                     b.HasIndex("objektId");
 
                     b.ToTable("gefaehrdungs");
+
+                    b.HasCheckConstraint("CK_Gefaehrdung_Stufe", "[gefaehrdungsstufe] > 0 AND [gefaehrdungsstufe] <= 10");
                 });
 
             modelBuilder.Entity("TIAE5_DB_Mini.Models.Objekt", b =>
@@ -103,6 +108,16 @@ namespace TIAE5_DB_Mini.Migrations
                     b.HasKey("objektId");
 
                     b.ToTable("objekts");
+
+                    b.HasCheckConstraint("CK_Objekt_Laengengrad", "[laengengrad] >= -180 AND [laengengrad] <= 80");
+
+                    b.HasCheckConstraint("CK_Objekt_Breitengrad", "[breitengrad] >= -90 AND [breitengrad] <= 90");
+
+                    b.HasCheckConstraint("CK_Objekt_Laenge", "[laenge] > 0");
+
+                    b.HasCheckConstraint("CK_Objekt_Breite", "[breite] > 0");
+
+                    b.HasCheckConstraint("CK_Objekt_Flache", "[flache] > 0");
                 });
 
             modelBuilder.Entity("TIAE5_DB_Mini.Models.Eigentuemer", b =>
@@ -128,6 +143,7 @@ namespace TIAE5_DB_Mini.Migrations
                     b.HasBaseType("TIAE5_DB_Mini.Models.Beteiligte");
 
                     b.Property<string>("amtskennung")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("beteiligteId1")

@@ -12,6 +12,7 @@ namespace TIAE5_DB_Mini.Models
     {
         public int eigentuemerId { get; set; }
 
+        [Required]
         public bool juristischePerson { get; set; }
 
         public Beteiligte beteiligtes { get; set; }

@@ -11,10 +11,19 @@ namespace TIAE5_DB_Mini.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int objektId { get; set; }
 
+        [Required]
         public double laengengrad { get; set; }
+
+        [Required]
         public double breitengrad { get; set; }
+
+        [Required] 
         public double laenge { get; set; }
+
+        [Required] 
         public double breite { get; set; }
+
+        [Required] 
         public double flache { get; set; }
 
         public ICollection<Gefaehrdung> gefaehrdungs { get; set; }

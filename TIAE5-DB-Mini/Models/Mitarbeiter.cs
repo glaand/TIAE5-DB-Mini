@@ -12,7 +12,10 @@ namespace TIAE5_DB_Mini.Models
     {
         public int mitarbeiterId { get; set; }
 
+        [Required]
         public int badgeNummer { get; set; }
+
+        [Required]
         public float lohnProMonat { get; set; }
 
         public Beteiligte beteiligte { get; set; }

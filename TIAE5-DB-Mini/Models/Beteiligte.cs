@@ -13,7 +13,10 @@ namespace TIAE5_DB_Mini.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int beteiligteId { get; set; }
 
+        [Required]
         public String vorname { get; set; }
+
+        [Required]
         public String nachname { get; set; }
 
         public ICollection<Objekt> objekts { get; set; }

@@ -12,8 +12,8 @@ namespace TIAE5_DB_Mini.Migrations
                 {
                     beteiligteId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    vorname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    nachname = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    vorname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    nachname = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -35,6 +35,11 @@ namespace TIAE5_DB_Mini.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_objekts", x => x.objektId);
+                    table.CheckConstraint("CK_Objekt_Laengengrad", "[laengengrad] >= -180 AND [laengengrad] <= 80");
+                    table.CheckConstraint("CK_Objekt_Breitengrad", "[breitengrad] >= -90 AND [breitengrad] <= 90");
+                    table.CheckConstraint("CK_Objekt_Laenge", "[laenge] > 0");
+                    table.CheckConstraint("CK_Objekt_Breite", "[breite] > 0");
+                    table.CheckConstraint("CK_Objekt_Flache", "[flache] > 0");
                 });
 
             migrationBuilder.CreateTable(
@@ -69,7 +74,7 @@ namespace TIAE5_DB_Mini.Migrations
                 {
                     beteiligteId = table.Column<int>(type: "int", nullable: false),
                     grundbuchamtId = table.Column<int>(type: "int", nullable: false),
-                    amtskennung = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    amtskennung = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     beteiligteId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -147,13 +152,14 @@ namespace TIAE5_DB_Mini.Migrations
                     gefaehrdungId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     gefaehrdungsstufe = table.Column<int>(type: "int", nullable: false),
-                    beschreibung = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    beschreibung = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     hatVerfuegung = table.Column<bool>(type: "bit", nullable: false),
                     objektId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_gefaehrdungs", x => x.gefaehrdungId);
+                    table.CheckConstraint("CK_Gefaehrdung_Stufe", "[gefaehrdungsstufe] > 0 AND [gefaehrdungsstufe] <= 10");
                     table.ForeignKey(
                         name: "FK_gefaehrdungs_objekts_objektId",
                         column: x => x.objektId,
