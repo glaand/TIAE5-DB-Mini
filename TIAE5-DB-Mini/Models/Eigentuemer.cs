@@ -9,8 +9,6 @@ namespace TIAE5_DB_Mini.Models
 {
     public class Eigentuemer : Beteiligte
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int eigentuemerId { get; set; }
 
         public bool juristischePerson { get; set; }

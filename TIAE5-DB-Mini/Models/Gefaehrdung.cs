@@ -9,8 +9,6 @@ namespace TIAE5_DB_Mini.Models
 {
     public class Gefaehrdung
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int gefaehrdungId { get; set; }
 
         public UInt16 gefaehrdungsstufe { get; set; }

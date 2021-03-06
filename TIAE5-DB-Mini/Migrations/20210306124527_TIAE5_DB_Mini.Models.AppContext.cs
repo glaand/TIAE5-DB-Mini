@@ -7,49 +7,6 @@ namespace TIAE5_DB_Mini.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "eigentuemers",
-                columns: table => new
-                {
-                    eigentuemerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    juristischePerson = table.Column<bool>(type: "bit", nullable: false),
-                    beteiligtesbeteiligteId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_eigentuemers", x => x.eigentuemerId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "grundbuchamts",
-                columns: table => new
-                {
-                    grundbuchamtId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    amtskennung = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    beteiligteId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_grundbuchamts", x => x.grundbuchamtId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "mitarbeiters",
-                columns: table => new
-                {
-                    mitarbeiterId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    badgeNummer = table.Column<int>(type: "int", nullable: false),
-                    lohnProMonat = table.Column<float>(type: "real", nullable: false),
-                    beteiligteId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_mitarbeiters", x => x.mitarbeiterId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "objekts",
                 columns: table => new
                 {
@@ -97,11 +54,40 @@ namespace TIAE5_DB_Mini.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     vorname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     nachname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    gefaehrdungId = table.Column<int>(type: "int", nullable: true)
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    gefaehrdungId = table.Column<int>(type: "int", nullable: true),
+                    eigentuemerId = table.Column<int>(type: "int", nullable: true),
+                    juristischePerson = table.Column<bool>(type: "bit", nullable: true),
+                    beteiligtesbeteiligteId = table.Column<int>(type: "int", nullable: true),
+                    grundbuchamtId = table.Column<int>(type: "int", nullable: true),
+                    amtskennung = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    beteiligteId1 = table.Column<int>(type: "int", nullable: true),
+                    mitarbeiterId = table.Column<int>(type: "int", nullable: true),
+                    badgeNummer = table.Column<int>(type: "int", nullable: true),
+                    lohnProMonat = table.Column<float>(type: "real", nullable: true),
+                    Mitarbeiter_beteiligteId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_beteiligtes", x => x.beteiligteId);
+                    table.ForeignKey(
+                        name: "FK_beteiligtes_beteiligtes_beteiligteId1",
+                        column: x => x.beteiligteId1,
+                        principalTable: "beteiligtes",
+                        principalColumn: "beteiligteId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_beteiligtes_beteiligtes_beteiligtesbeteiligteId",
+                        column: x => x.beteiligtesbeteiligteId,
+                        principalTable: "beteiligtes",
+                        principalColumn: "beteiligteId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_beteiligtes_beteiligtes_Mitarbeiter_beteiligteId1",
+                        column: x => x.Mitarbeiter_beteiligteId1,
+                        principalTable: "beteiligtes",
+                        principalColumn: "beteiligteId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_beteiligtes_gefaehrdungs_gefaehrdungId",
                         column: x => x.gefaehrdungId,
@@ -111,14 +97,24 @@ namespace TIAE5_DB_Mini.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_beteiligtes_beteiligteId1",
+                table: "beteiligtes",
+                column: "beteiligteId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_beteiligtes_beteiligtesbeteiligteId",
+                table: "beteiligtes",
+                column: "beteiligtesbeteiligteId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_beteiligtes_gefaehrdungId",
                 table: "beteiligtes",
                 column: "gefaehrdungId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_eigentuemers_beteiligtesbeteiligteId",
-                table: "eigentuemers",
-                column: "beteiligtesbeteiligteId");
+                name: "IX_beteiligtes_Mitarbeiter_beteiligteId1",
+                table: "beteiligtes",
+                column: "Mitarbeiter_beteiligteId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_gefaehrdungs_objektId",
@@ -126,43 +122,9 @@ namespace TIAE5_DB_Mini.Migrations
                 column: "objektId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_grundbuchamts_beteiligteId",
-                table: "grundbuchamts",
-                column: "beteiligteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_mitarbeiters_beteiligteId",
-                table: "mitarbeiters",
-                column: "beteiligteId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_objekts_beteiligteId",
                 table: "objekts",
                 column: "beteiligteId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_eigentuemers_beteiligtes_beteiligtesbeteiligteId",
-                table: "eigentuemers",
-                column: "beteiligtesbeteiligteId",
-                principalTable: "beteiligtes",
-                principalColumn: "beteiligteId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_grundbuchamts_beteiligtes_beteiligteId",
-                table: "grundbuchamts",
-                column: "beteiligteId",
-                principalTable: "beteiligtes",
-                principalColumn: "beteiligteId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_mitarbeiters_beteiligtes_beteiligteId",
-                table: "mitarbeiters",
-                column: "beteiligteId",
-                principalTable: "beteiligtes",
-                principalColumn: "beteiligteId",
-                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_objekts_beteiligtes_beteiligteId",
@@ -178,15 +140,6 @@ namespace TIAE5_DB_Mini.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_beteiligtes_gefaehrdungs_gefaehrdungId",
                 table: "beteiligtes");
-
-            migrationBuilder.DropTable(
-                name: "eigentuemers");
-
-            migrationBuilder.DropTable(
-                name: "grundbuchamts");
-
-            migrationBuilder.DropTable(
-                name: "mitarbeiters");
 
             migrationBuilder.DropTable(
                 name: "gefaehrdungs");

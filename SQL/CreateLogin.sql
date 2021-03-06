@@ -3,3 +3,7 @@ CREATE LOGIN Grundbuchamt
 GO
 
 CREATE USER Grundbuchamt FOR LOGIN Grundbuchamt;
+GO
+
+exec sp_addsrvrolemember [Grundbuchamt], sysadmin;
+GO

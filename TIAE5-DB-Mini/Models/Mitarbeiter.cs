@@ -9,8 +9,6 @@ namespace TIAE5_DB_Mini.Models
 {
     public class Mitarbeiter : Beteiligte
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int mitarbeiterId { get; set; }
 
         public int badgeNummer { get; set; }
