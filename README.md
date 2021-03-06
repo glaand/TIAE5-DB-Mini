@@ -2,8 +2,13 @@
 
 ## The the SQL Server ready for the project
 * Open SQL Server Management Studio and log in with an admin user
-* Run the file `SQL/CreateDatabase.sql` to create the database
-* Run the file `SQL/CreateLogin.sql` to create a user with access to that database
+* Run the following command to create a database to work on
+  * `CREATE DATABASE Grundbuchamt;`
+* Run the following commands to create a user and login to access the database
+  * Use `GO` in between these commands or run them separately!
+  * `CREATE LOGIN Grundbuchamt WITH PASSWORD = 'IBZ2021?';`
+  * `CREATE USER Grundbuchamt FOR LOGIN Grundbuchamt;`
+  * `exec sp_addsrvrolemember [Grundbuchamt], sysadmin;`
 * Make sure your Server accepts SQL Server account logins
   * Right click server, select Properties > Security > Server authentication
   * Select "SQL Server and Windows authentication* 
