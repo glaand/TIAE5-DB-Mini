@@ -39,6 +39,7 @@ namespace TIAE5_DB_Mini
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                
             });
         }
     }
