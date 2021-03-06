@@ -10,7 +10,7 @@ using TIAE5_DB_Mini.Models;
 namespace TIAE5_DB_Mini.Migrations
 {
     [DbContext(typeof(CaseStudyContext))]
-    [Migration("20210306142235_TIAE5_DB_Mini.Models.AppContext")]
+    [Migration("20210306143832_TIAE5_DB_Mini.Models.AppContext")]
     partial class TIAE5_DB_MiniModelsAppContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,6 +54,26 @@ namespace TIAE5_DB_Mini.Migrations
                     b.HasKey("beteiligteId");
 
                     b.ToTable("beteiligtes");
+
+                    b.HasData(
+                        new
+                        {
+                            beteiligteId = 1,
+                            nachname = "Gehring",
+                            vorname = "Sven"
+                        },
+                        new
+                        {
+                            beteiligteId = 2,
+                            nachname = "Glatzl",
+                            vorname = "André"
+                        },
+                        new
+                        {
+                            beteiligteId = 3,
+                            nachname = "Müller",
+                            vorname = "Lukas"
+                        });
                 });
 
             modelBuilder.Entity("TIAE5_DB_Mini.Models.Gefaehrdung", b =>
@@ -83,6 +103,10 @@ namespace TIAE5_DB_Mini.Migrations
                     b.ToTable("gefaehrdungs");
 
                     b.HasCheckConstraint("CK_Gefaehrdung_Stufe", "[gefaehrdungsstufe] > 0 AND [gefaehrdungsstufe] <= 10");
+
+                    b.HasCheckConstraint("CK_Gefaehrdung_Stufe_Min", "[gefaehrdungsstufe] > 0");
+
+                    b.HasCheckConstraint("CK_Gefaehrdung_Stufe_Max", "[gefaehrdungsstufe] <= 0");
                 });
 
             modelBuilder.Entity("TIAE5_DB_Mini.Models.Objekt", b =>
@@ -111,7 +135,7 @@ namespace TIAE5_DB_Mini.Migrations
 
                     b.ToTable("objekts");
 
-                    b.HasCheckConstraint("CK_Objekt_Laengengrad", "[laengengrad] >= -180 AND [laengengrad] <= 80");
+                    b.HasCheckConstraint("CK_Objekt_Laengengrad", "[laengengrad] >= -180 AND [laengengrad] <= 180");
 
                     b.HasCheckConstraint("CK_Objekt_Breitengrad", "[breitengrad] >= -90 AND [breitengrad] <= 90");
 
@@ -120,6 +144,35 @@ namespace TIAE5_DB_Mini.Migrations
                     b.HasCheckConstraint("CK_Objekt_Breite", "[breite] > 0");
 
                     b.HasCheckConstraint("CK_Objekt_Flache", "[flache] > 0");
+
+                    b.HasData(
+                        new
+                        {
+                            objektId = 1,
+                            breite = 80.0,
+                            breitengrad = 90.0,
+                            flache = 120.0,
+                            laenge = 100.0,
+                            laengengrad = 90.0
+                        },
+                        new
+                        {
+                            objektId = 2,
+                            breite = 90.0,
+                            breitengrad = 80.0,
+                            flache = 130.0,
+                            laenge = 110.0,
+                            laengengrad = 80.0
+                        },
+                        new
+                        {
+                            objektId = 3,
+                            breite = 100.0,
+                            breitengrad = 70.0,
+                            flache = 140.0,
+                            laenge = 120.0,
+                            laengengrad = 70.0
+                        });
                 });
 
             modelBuilder.Entity("TIAE5_DB_Mini.Models.Eigentuemer", b =>

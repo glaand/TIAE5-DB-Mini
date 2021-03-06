@@ -35,7 +35,7 @@ namespace TIAE5_DB_Mini.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_objekts", x => x.objektId);
-                    table.CheckConstraint("CK_Objekt_Laengengrad", "[laengengrad] >= -180 AND [laengengrad] <= 80");
+                    table.CheckConstraint("CK_Objekt_Laengengrad", "[laengengrad] >= -180 AND [laengengrad] <= 180");
                     table.CheckConstraint("CK_Objekt_Breitengrad", "[breitengrad] >= -90 AND [breitengrad] <= 90");
                     table.CheckConstraint("CK_Objekt_Laenge", "[laenge] > 0");
                     table.CheckConstraint("CK_Objekt_Breite", "[breite] > 0");
@@ -160,12 +160,34 @@ namespace TIAE5_DB_Mini.Migrations
                 {
                     table.PrimaryKey("PK_gefaehrdungs", x => x.gefaehrdungId);
                     table.CheckConstraint("CK_Gefaehrdung_Stufe", "[gefaehrdungsstufe] > 0 AND [gefaehrdungsstufe] <= 10");
+                    table.CheckConstraint("CK_Gefaehrdung_Stufe_Min", "[gefaehrdungsstufe] > 0");
+                    table.CheckConstraint("CK_Gefaehrdung_Stufe_Max", "[gefaehrdungsstufe] <= 0");
                     table.ForeignKey(
                         name: "FK_gefaehrdungs_objekts_objektId",
                         column: x => x.objektId,
                         principalTable: "objekts",
                         principalColumn: "objektId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "beteiligtes",
+                columns: new[] { "beteiligteId", "nachname", "vorname" },
+                values: new object[,]
+                {
+                    { 1, "Gehring", "Sven" },
+                    { 2, "Glatzl", "André" },
+                    { 3, "Müller", "Lukas" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "objekts",
+                columns: new[] { "objektId", "breite", "breitengrad", "flache", "laenge", "laengengrad" },
+                values: new object[,]
+                {
+                    { 1, 80.0, 90.0, 120.0, 100.0, 90.0 },
+                    { 2, 90.0, 80.0, 130.0, 110.0, 80.0 },
+                    { 3, 100.0, 70.0, 140.0, 120.0, 70.0 }
                 });
 
             migrationBuilder.CreateIndex(
