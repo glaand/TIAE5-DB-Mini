@@ -18,3 +18,11 @@
 
 ## Using different database credentials
 If you are using a different database connection string locally, do not commit these changes to the repository. To be very sure, just ignore changes to the appsettings locally (`git update-index --assume-unchanged TIAE5-DB-Mini/appsettings.json`)
+
+## See all available routes
+If you want to see all available routes, please visit go to the following URL Path:
+
+`<hostname>/api/`
+
+You should see something like this:
+![](https://i.imgur.com/Vldhd0E.png)
