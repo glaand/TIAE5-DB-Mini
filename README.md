@@ -15,3 +15,6 @@
   * `EntityFrameworkCore\Update-Database`
 * Execute the following command to re-generate migrations (only for development)
   * `EntityFrameworkCore\Add-Migration TIAE5_DB_Mini.Models.AppContext`
+
+## Using different database credentials
+If you are using a different database connection string locally, do not commit these changes to the repository. To be very sure, just ignore changes to the appsettings locally (`git update-index --assume-unchanged TIAE5-DB-Mini/appsettings.json`)
