@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TIAE5_DB_Mini.Models
 {
-    public class Grundbuchamt
+    public class Grundbuchamt : Beteiligte
     {
         public int grundbuchamtId { get; set; }
 

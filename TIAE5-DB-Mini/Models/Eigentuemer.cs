@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TIAE5_DB_Mini.Models
 {
-    public class Eigentuemer
+    public class Eigentuemer : Beteiligte
     {
         public int eigentuemerId { get; set; }
 

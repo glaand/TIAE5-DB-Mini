@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TIAE5_DB_Mini.Models
 {
-    public class Mitarbeiter
+    public class Mitarbeiter : Beteiligte
     {
         public int mitarbeiterId { get; set; }
 
