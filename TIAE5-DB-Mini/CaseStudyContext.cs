@@ -25,7 +25,7 @@ namespace TIAE5_DB_Mini.Models
         {
             modelBuilder.Entity<Gefaehrdung>(entity =>
             {
-                entity.HasCheckConstraint("CK_Gefaehrdung_Stufe", "[gefaehrdungsstufe] > 0 AND [gefaehrdungsstufe] <= 10");
+                entity.HasCheckConstraint("CK_Gefaehrdung_Stufe", "[gefaehrdungsstufe] > 0 AND [gefaehrdungsstufe] < 10");
             });
 
             modelBuilder.Entity<Objekt>(entity =>
@@ -36,9 +36,6 @@ namespace TIAE5_DB_Mini.Models
                 entity.HasCheckConstraint("CK_Objekt_Breite", "[breite] > 0");
                 entity.HasCheckConstraint("CK_Objekt_Flache", "[flache] > 0");
             });
-
-            modelBuilder.Entity<Gefaehrdung>(entity => entity.HasCheckConstraint("CK_Gefaehrdung_Stufe_Min", "[gefaehrdungsstufe] > 0"));
-            modelBuilder.Entity<Gefaehrdung>(entity => entity.HasCheckConstraint("CK_Gefaehrdung_Stufe_Max", "[gefaehrdungsstufe] <= 10"));
 
             var objekt1 = new { beteiligtesbeteiligteId = 1, objektId = 1, laengengrad = (double)90.0, breitengrad = (double)90.0, laenge = (double)100.0, breite = (double)80, flache = (double)120 };
             var objekt2 = new { beteiligtesbeteiligteId = 2, objektId = 2, laengengrad = (double)80.0, breitengrad = (double)80.0, laenge = (double)110.0, breite = (double)90, flache = (double)130 };

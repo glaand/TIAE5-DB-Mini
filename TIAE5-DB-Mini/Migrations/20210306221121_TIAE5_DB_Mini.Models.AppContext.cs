@@ -156,9 +156,7 @@ namespace TIAE5_DB_Mini.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_gefaehrdungs", x => x.gefaehrdungId);
-                    table.CheckConstraint("CK_Gefaehrdung_Stufe", "[gefaehrdungsstufe] > 0 AND [gefaehrdungsstufe] <= 10");
-                    table.CheckConstraint("CK_Gefaehrdung_Stufe_Min", "[gefaehrdungsstufe] > 0");
-                    table.CheckConstraint("CK_Gefaehrdung_Stufe_Max", "[gefaehrdungsstufe] <= 10");
+                    table.CheckConstraint("CK_Gefaehrdung_Stufe", "[gefaehrdungsstufe] > 0 AND [gefaehrdungsstufe] < 10");
                     table.ForeignKey(
                         name: "FK_gefaehrdungs_objekts_objektId",
                         column: x => x.objektId,

@@ -82,11 +82,7 @@ namespace TIAE5_DB_Mini.Migrations
 
                     b.ToTable("gefaehrdungs");
 
-                    b.HasCheckConstraint("CK_Gefaehrdung_Stufe", "[gefaehrdungsstufe] > 0 AND [gefaehrdungsstufe] <= 10");
-
-                    b.HasCheckConstraint("CK_Gefaehrdung_Stufe_Min", "[gefaehrdungsstufe] > 0");
-
-                    b.HasCheckConstraint("CK_Gefaehrdung_Stufe_Max", "[gefaehrdungsstufe] <= 10");
+                    b.HasCheckConstraint("CK_Gefaehrdung_Stufe", "[gefaehrdungsstufe] > 0 AND [gefaehrdungsstufe] < 10");
 
                     b.HasData(
                         new
