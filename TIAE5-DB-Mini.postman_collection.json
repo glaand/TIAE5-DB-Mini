@@ -1,0 +1,496 @@
+{
+	"info": {
+		"_postman_id": "61d8e681-1a09-4a9c-aefc-43b44d9bdbf0",
+		"name": "TIAE5-DT Normfallstudie",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Externer",
+			"item": [
+				{
+					"name": "Gefährdungen auflisten",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Gefaehrdungs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gefährdungen anzeigen",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Gefaehrdungs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Objekte auflisten",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:22759/api/Objekts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Objekts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Objekt anzeigen",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Gefaehrdungs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Beteiligte auflisten",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Gefaehrdungs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Beteiligten anzeigen",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Gefaehrdungs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Grundbuchämter auflisten",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Gefaehrdungs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Grundbuchamt anzeigen",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:22759/api/Grundbuchamts/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Grundbuchamts",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eigentümer auflisten",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Eigentümer anzeigen",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:22759/api/Eigentuemers/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Eigentuemers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mitarbeiter auflisten",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Mitarbeiter anzeigen",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "password",
+						"type": "string"
+					},
+					{
+						"key": "username",
+						"value": "externer",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Grundbuchamt",
+			"item": [
+				{
+					"name": "Gefährdung erstellen",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"gefaehrdungsstufe\": 4,\r\n    \"beschreibung\": \"Schwefel\",\r\n    \"hatVerfuegung\": false\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Gefaehrdungs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gefährdung löschen",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:22759/api/Gefaehrdungs/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Gefaehrdungs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Objekt erstellen",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"gefaehrdungsstufe\": 4,\r\n    \"beschreibung\": \"Schwefel\",\r\n    \"hatVerfuegung\": false\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Gefaehrdungs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Objekt updaten",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Grundbuchamt erstellen",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"gefaehrdungsstufe\": 4,\r\n    \"beschreibung\": \"Schwefel\",\r\n    \"hatVerfuegung\": false\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Gefaehrdungs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eigentümer erstellen",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"vorname\": \"Karlheinz\",\r\n    \"nachname\": \"Keller\",\r\n    \"juristischePerson\": false\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:22759/api/Eigentuemers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Eigentuemers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mitarbeiter erstellen",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"vorname\": \"Karlheinz\",\r\n    \"nachname\": \"Keller\",\r\n    \"juristischePerson\": false\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:22759/api/Eigentuemers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Eigentuemers"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "password",
+						"type": "string"
+					},
+					{
+						"key": "username",
+						"value": "grundbuchamt",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
