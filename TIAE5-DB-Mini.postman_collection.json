@@ -381,7 +381,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"vorname\": \"Karlheinz\",\r\n    \"nachname\": \"Keller\",\r\n    \"juristischePerson\": false\r\n}\r\n",
+							"raw": "{\r\n    \"email\": \"Karlheinz\",\r\n    \"telefon\": \"Keller\",\r\n    \"juristischePerson\": false\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -410,7 +410,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"vorname\": \"Karlheinz\",\r\n    \"nachname\": \"Keller\",\r\n    \"juristischePerson\": false\r\n}\r\n",
+							"raw": "{\r\n    \"email\": \"Karlheinz\",\r\n    \"telefon\": \"Keller\",\r\n    \"juristischePerson\": false\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"

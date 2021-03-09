@@ -14,10 +14,10 @@ namespace TIAE5_DB_Mini.Models
         public int beteiligteId { get; set; }
 
         [Required]
-        public String vorname { get; set; }
+        public String email { get; set; }
 
         [Required]
-        public String nachname { get; set; }
+        public String telefon { get; set; }
 
         public ICollection<Objekt> objekts { get; set; }
     }

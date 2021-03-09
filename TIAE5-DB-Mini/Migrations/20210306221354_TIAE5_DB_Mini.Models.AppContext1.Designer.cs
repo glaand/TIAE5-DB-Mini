@@ -43,11 +43,11 @@ namespace TIAE5_DB_Mini.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("nachname")
+                    b.Property<string>("telefon")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("vorname")
+                    b.Property<string>("email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -195,8 +195,8 @@ namespace TIAE5_DB_Mini.Migrations
                         new
                         {
                             beteiligteId = 1,
-                            nachname = "Gehring",
-                            vorname = "Sven",
+                            telefon = "2893748932",
+                            email = "sven@kontakt.ch",
                             juristischePerson = true
                         });
                 });
@@ -220,8 +220,8 @@ namespace TIAE5_DB_Mini.Migrations
                         new
                         {
                             beteiligteId = 3,
-                            nachname = "Müller",
-                            vorname = "Lukas",
+                            telefon = "09349803243",
+                            email = "lukas@kontakt.ch",
                             amtskennung = "ZH Hochbau"
                         });
                 });
@@ -247,8 +247,8 @@ namespace TIAE5_DB_Mini.Migrations
                         new
                         {
                             beteiligteId = 2,
-                            nachname = "Glatzl",
-                            vorname = "André",
+                            telefon = "83274923",
+                            email = "andre@kontakt.ch",
                             badgeNummer = 1000,
                             lohnProMonat = 5000f
                         });

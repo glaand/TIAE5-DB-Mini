@@ -12,8 +12,8 @@ namespace TIAE5_DB_Mini.Migrations
                 {
                     beteiligteId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    vorname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    nachname = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    telefon = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -167,12 +167,12 @@ namespace TIAE5_DB_Mini.Migrations
 
             migrationBuilder.InsertData(
                 table: "beteiligtes",
-                columns: new[] { "beteiligteId", "nachname", "vorname" },
+                columns: new[] { "beteiligteId", "telefon", "email" },
                 values: new object[,]
                 {
-                    { 1, "Gehring", "Sven" },
-                    { 3, "Müller", "Lukas" },
-                    { 2, "Glatzl", "André" }
+                    { 1, "2893748932", "sven@kontakt.ch" },
+                    { 3, "09349803243", "lukas@kontakt.ch" },
+                    { 2, "83274923", "andre@kontakt.ch" }
                 });
 
             migrationBuilder.InsertData(

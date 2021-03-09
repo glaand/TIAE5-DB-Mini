@@ -45,9 +45,9 @@ namespace TIAE5_DB_Mini.Models
             var gefaehrdung2 = new { gefaehrdungId = 2, gefaehrdungsstufe = (ushort)2, beschreibung = "bla bla", hatVerfuegung = false, objektId = 2 };
             var gefaehrdung3 = new { gefaehrdungId = 3, gefaehrdungsstufe = (ushort)3, beschreibung = "bla bla bla", hatVerfuegung = true, objektId = 3 };
 
-            var eigentumer = new { beteiligteId = 1, juristischePerson = true, vorname = "Sven", nachname = "Gehring" };
-            var mitarbeiter = new { beteiligteId = 2, badgeNummer = 1000, lohnProMonat = (float)5000, vorname = "André", nachname = "Glatzl" };
-            var grundbuchamt = new { beteiligteId = 3, amtskennung = "ZH Hochbau", vorname = "Lukas", nachname = "Müller"};
+            var eigentumer = new { beteiligteId = 1, juristischePerson = true, email = "sven@kontakt.ch", telefon = "2893748932" };
+            var mitarbeiter = new { beteiligteId = 2, badgeNummer = 1000, lohnProMonat = (float)5000, email = "andre@kontakt.ch", telefon = "83274923" };
+            var grundbuchamt = new { beteiligteId = 3, amtskennung = "ZH Hochbau", email = "lukas@kontakt.ch", telefon = "09349803243"};
 
             
 
