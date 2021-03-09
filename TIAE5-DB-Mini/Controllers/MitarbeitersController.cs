@@ -11,13 +11,10 @@ namespace TIAE5_DB_Mini.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MitarbeitersController : ControllerBase
-    {
-        private readonly CaseStudyContext _context;
-
-        public MitarbeitersController(CaseStudyContext context)
+    public class MitarbeitersController : CaseStudyController {
+        public MitarbeitersController(CaseStudyExternerContext externalCtx, CaseStudyInternerContext internalCtx) : base(externalCtx, internalCtx)
         {
-            _context = context;
+
         }
 
         // GET: api/Mitarbeiters
@@ -25,7 +22,7 @@ namespace TIAE5_DB_Mini.Controllers
         [ActionName("GET_ALL")]
         public async Task<ActionResult<IEnumerable<Mitarbeiter>>> GET_ALL()
         {
-            return await _context.mitarbeiters.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).ToListAsync();
+            return await GetContext().mitarbeiters.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).ToListAsync();
         }
 
         // GET: api/Mitarbeiters/5
@@ -33,7 +30,7 @@ namespace TIAE5_DB_Mini.Controllers
         [ActionName("GET_ONE")]
         public async Task<ActionResult<Mitarbeiter>> GET_ONE(int id)
         {
-            var mitarbeiter = await _context.mitarbeiters.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.beteiligteId == id);
+            var mitarbeiter = await GetContext().mitarbeiters.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.beteiligteId == id);
 
             if (mitarbeiter == null)
             {

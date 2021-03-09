@@ -11,13 +11,10 @@ namespace TIAE5_DB_Mini.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GefaehrdungsController : ControllerBase
-    {
-        private readonly CaseStudyContext _context;
-
-        public GefaehrdungsController(CaseStudyContext context)
+    public class GefaehrdungsController : CaseStudyController {
+        public GefaehrdungsController(CaseStudyExternerContext externalCtx, CaseStudyInternerContext internalCtx) : base(externalCtx, internalCtx)
         {
-            _context = context;
+
         }
 
         // GET: api/Gefaehrdungs
@@ -25,7 +22,7 @@ namespace TIAE5_DB_Mini.Controllers
         [ActionName("GET_ALL")]
         public async Task<ActionResult<IEnumerable<Gefaehrdung>>> GET_ALL()
         {
-            return await _context.gefaehrdungs.ToListAsync();
+            return await GetContext().gefaehrdungs.ToListAsync();
         }
 
         // GET: api/Gefaehrdungs/5
@@ -33,7 +30,7 @@ namespace TIAE5_DB_Mini.Controllers
         [ActionName("GET_ONE")]
         public async Task<ActionResult<Gefaehrdung>> GET_ONE(int id)
         {
-            var gefaehrdung = await _context.gefaehrdungs.FindAsync(id);
+            var gefaehrdung = await GetContext().gefaehrdungs.FindAsync(id);
 
             if (gefaehrdung == null)
             {
@@ -50,8 +47,8 @@ namespace TIAE5_DB_Mini.Controllers
         [ActionName("POST")]
         public async Task<ActionResult<Gefaehrdung>> POST(Gefaehrdung gefaehrdung)
         {
-            _context.gefaehrdungs.Add(gefaehrdung);
-            await _context.SaveChangesAsync();
+            GetContext().gefaehrdungs.Add(gefaehrdung);
+            await GetContext().SaveChangesAsync();
 
             return CreatedAtAction("GET_ONE", new { id = gefaehrdung.gefaehrdungId }, gefaehrdung);
         }
@@ -61,21 +58,21 @@ namespace TIAE5_DB_Mini.Controllers
         [ActionName("DELETE")]
         public async Task<ActionResult<Gefaehrdung>> DELETE(int id)
         {
-            var gefaehrdung = await _context.gefaehrdungs.FindAsync(id);
+            var gefaehrdung = await GetContext().gefaehrdungs.FindAsync(id);
             if (gefaehrdung == null)
             {
                 return NotFound();
             }
 
-            _context.gefaehrdungs.Remove(gefaehrdung);
-            await _context.SaveChangesAsync();
+            GetContext().gefaehrdungs.Remove(gefaehrdung);
+            await GetContext().SaveChangesAsync();
 
             return gefaehrdung;
         }
 
         private bool GefaehrdungExists(int id)
         {
-            return _context.gefaehrdungs.Any(e => e.gefaehrdungId == id);
+            return GetContext().gefaehrdungs.Any(e => e.gefaehrdungId == id);
         }
     }
 }

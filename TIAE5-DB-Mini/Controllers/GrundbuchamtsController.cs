@@ -11,13 +11,10 @@ namespace TIAE5_DB_Mini.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GrundbuchamtsController : ControllerBase
-    {
-        private readonly CaseStudyContext _context;
-
-        public GrundbuchamtsController(CaseStudyContext context)
+    public class GrundbuchamtsController : CaseStudyController {
+        public GrundbuchamtsController(CaseStudyExternerContext externalCtx, CaseStudyInternerContext internalCtx) : base(externalCtx, internalCtx)
         {
-            _context = context;
+
         }
 
         // GET: api/Grundbuchamts
@@ -25,7 +22,7 @@ namespace TIAE5_DB_Mini.Controllers
         [ActionName("GET_ALL")]
         public async Task<ActionResult<IEnumerable<Grundbuchamt>>> GET_ALL()
         {
-            return await _context.grundbuchamts.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).ToListAsync();
+            return await GetContext().grundbuchamts.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).ToListAsync();
         }
 
         // GET: api/Grundbuchamts/5
@@ -33,7 +30,7 @@ namespace TIAE5_DB_Mini.Controllers
         [ActionName("GET_ONE")]
         public async Task<ActionResult<Grundbuchamt>> GET_ONE(int id)
         {
-            var grundbuchamt = await _context.grundbuchamts.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.beteiligteId == id);
+            var grundbuchamt = await GetContext().grundbuchamts.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.beteiligteId == id);
 
             if (grundbuchamt == null)
             {
@@ -57,7 +54,7 @@ namespace TIAE5_DB_Mini.Controllers
             {
                 foreach (Objekt temp in grundbuchamt.objekts)
                 {
-                    Objekt found = await this._context.objekts.FindAsync(temp.objektId);
+                    Objekt found = await this.GetContext().objekts.FindAsync(temp.objektId);
                     if (found != null)
                     {
                         listOfObjets.Add(found);
@@ -71,8 +68,8 @@ namespace TIAE5_DB_Mini.Controllers
 
             grundbuchamt.objekts = listOfObjets;
 
-            _context.grundbuchamts.Add(grundbuchamt);
-            await _context.SaveChangesAsync();
+            GetContext().grundbuchamts.Add(grundbuchamt);
+            await GetContext().SaveChangesAsync();
 
             return CreatedAtAction("GET_ONE", new { id = grundbuchamt.beteiligteId }, grundbuchamt);
         }

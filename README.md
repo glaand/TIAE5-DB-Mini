@@ -45,13 +45,13 @@ CREATE LOGIN TIAE5DT_Interner WITH PASSWORD = 'IBZ2022';
 GO
 CREATE USER TIAE5DT_Interner FOR LOGIN TIAE5DT_Interner;
 GO
-GRANT SELECT ON beteiligtes TO TIAE5DT_Interner;
+GRANT SELECT, INSERT, UPDATE ON beteiligtes TO TIAE5DT_Interner;
 GRANT SELECT, INSERT ON eigentuemer TO TIAE5DT_Interner;
 GRANT SELECT, INSERT, DELETE ON gefaehrdungs TO TIAE5DT_Interner;
 GRANT SELECT, INSERT ON grundbuchamt TO TIAE5DT_Interner;
 GRANT SELECT ON mitarbeiter TO TIAE5DT_Interner;
 GRANT SELECT, INSERT, UPDATE ON objekts TO TIAE5DT_Interner;
-GRANT SELECT ON BeteiligteObjekt TO TIAE5DT_Interner;
+GRANT SELECT, INSERT, DELETE ON BeteiligteObjekt TO TIAE5DT_Interner;
 ```
 
 ## Generate the database from Visual Studio

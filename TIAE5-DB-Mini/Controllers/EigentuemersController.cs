@@ -11,13 +11,10 @@ namespace TIAE5_DB_Mini.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EigentuemersController : ControllerBase
-    {
-        private readonly CaseStudyContext _context;
-
-        public EigentuemersController(CaseStudyContext context)
+    public class EigentuemersController : CaseStudyController {
+        public EigentuemersController(CaseStudyExternerContext externalCtx, CaseStudyInternerContext internalCtx) : base(externalCtx, internalCtx)
         {
-            _context = context;
+
         }
 
         // GET: api/Eigentuemers
@@ -25,7 +22,7 @@ namespace TIAE5_DB_Mini.Controllers
         [ActionName("GET_ALL")]
         public async Task<ActionResult<IEnumerable<Eigentuemer>>> GET_ALL()
         {
-            return await _context.eigentuemers.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).ToListAsync();
+            return await GetContext().eigentuemers.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).ToListAsync();
         }
 
         // GET: api/Eigentuemers/5
@@ -33,7 +30,7 @@ namespace TIAE5_DB_Mini.Controllers
         [ActionName("GET_ONE")]
         public async Task<ActionResult<Eigentuemer>> GET_ONE(int id)
         {
-            var eigentuemer = await _context.eigentuemers.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.beteiligteId == id);
+            var eigentuemer = await GetContext().eigentuemers.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.beteiligteId == id);
 
             if (eigentuemer == null)
             {
@@ -56,7 +53,7 @@ namespace TIAE5_DB_Mini.Controllers
             {
                 foreach (Objekt temp in eigentuemer.objekts)
                 {
-                    Objekt found = await this._context.objekts.FindAsync(temp.objektId);
+                    Objekt found = await this.GetContext().objekts.FindAsync(temp.objektId);
                     if (found != null)
                     {
                         listOfObjets.Add(found);
@@ -70,8 +67,8 @@ namespace TIAE5_DB_Mini.Controllers
 
             eigentuemer.objekts = listOfObjets;
 
-            _context.eigentuemers.Add(eigentuemer);
-            await _context.SaveChangesAsync();
+            GetContext().eigentuemers.Add(eigentuemer);
+            await GetContext().SaveChangesAsync();
 
             return CreatedAtAction("GET_ONE", new { id = eigentuemer.beteiligteId }, eigentuemer);
         }

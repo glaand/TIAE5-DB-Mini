@@ -11,13 +11,10 @@ namespace TIAE5_DB_Mini.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ObjektsController : ControllerBase
-    {
-        private readonly CaseStudyContext _context;
-
-        public ObjektsController(CaseStudyContext context)
+    public class ObjektsController : CaseStudyController {
+        public ObjektsController(CaseStudyExternerContext externalCtx, CaseStudyInternerContext internalCtx) : base(externalCtx, internalCtx)
         {
-            _context = context;
+
         }
 
         // GET: api/Objekts
@@ -25,7 +22,7 @@ namespace TIAE5_DB_Mini.Controllers
         [ActionName("GET_ALL")]
         public async Task<ActionResult<IEnumerable<Objekt>>> GET_ALL()
         {
-            return await _context.objekts.Include(t => t.gefaehrdungs).ToListAsync();
+            return await GetContext().objekts.Include(t => t.gefaehrdungs).ToListAsync();
         }
 
         // GET: api/Objekts/5
@@ -33,7 +30,7 @@ namespace TIAE5_DB_Mini.Controllers
         [ActionName("GET_ONE")]
         public async Task<ActionResult<Objekt>> GET_ONE(int id)
         {
-            var objekt = await _context.objekts.Include(t => t.gefaehrdungs).FirstOrDefaultAsync(i => i.objektId == id);
+            var objekt = await GetContext().objekts.Include(t => t.gefaehrdungs).FirstOrDefaultAsync(i => i.objektId == id);
 
             if (objekt == null)
             {
@@ -61,7 +58,7 @@ namespace TIAE5_DB_Mini.Controllers
             {
                 foreach (Gefaehrdung g in objekt.gefaehrdungs)
                 {
-                    Gefaehrdung found = await this._context.gefaehrdungs.FindAsync(g.gefaehrdungId);
+                    Gefaehrdung found = await this.GetContext().gefaehrdungs.FindAsync(g.gefaehrdungId);
                     if (found != null)
                     {
                         listOfGefaehrdungs.Add(found);
@@ -74,11 +71,11 @@ namespace TIAE5_DB_Mini.Controllers
                 objekt.gefaehrdungs = listOfGefaehrdungs;
             }
 
-            _context.Entry(objekt).State = EntityState.Modified;
+            GetContext().Entry(objekt).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await GetContext().SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -108,7 +105,7 @@ namespace TIAE5_DB_Mini.Controllers
             {
                 foreach (Gefaehrdung g in objekt.gefaehrdungs)
                 {
-                    Gefaehrdung found = await this._context.gefaehrdungs.FindAsync(g.gefaehrdungId);
+                    Gefaehrdung found = await this.GetContext().gefaehrdungs.FindAsync(g.gefaehrdungId);
                     if (found != null)
                     {
                         listOfGefaehrdungs.Add(found);
@@ -122,15 +119,15 @@ namespace TIAE5_DB_Mini.Controllers
 
             objekt.gefaehrdungs = listOfGefaehrdungs;
 
-            _context.objekts.Add(objekt);
-            await _context.SaveChangesAsync();
+            GetContext().objekts.Add(objekt);
+            await GetContext().SaveChangesAsync();
 
             return CreatedAtAction("GET_ONE", new { id = objekt.objektId }, objekt);
         }
 
         private bool ObjektExists(int id)
         {
-            return _context.objekts.Any(e => e.objektId == id);
+            return GetContext().objekts.Any(e => e.objektId == id);
         }
     }
 }
