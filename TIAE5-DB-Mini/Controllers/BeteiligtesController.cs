@@ -11,13 +11,10 @@ namespace TIAE5_DB_Mini.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BeteiligtesController : ControllerBase
-    {
-        private readonly CaseStudyContext _context;
+    public class BeteiligtesController : CaseStudyController {
 
-        public BeteiligtesController(CaseStudyContext context)
+        public BeteiligtesController(CaseStudyExternerContext externalCtx, CaseStudyInternerContext internalCtx) : base(externalCtx, internalCtx)
         {
-            _context = context;
         }
 
         // GET: api/Beteiligtes
@@ -25,7 +22,7 @@ namespace TIAE5_DB_Mini.Controllers
         [ActionName("GET_ALL")]
         public async Task<ActionResult<IEnumerable<Beteiligte>>> GET_All()
         {
-            return await _context.beteiligtes.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).ToListAsync();
+            return await GetContext().beteiligtes.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).ToListAsync();
         }
 
         // GET: api/Beteiligtes/5
@@ -33,7 +30,7 @@ namespace TIAE5_DB_Mini.Controllers
         [ActionName("GET_ONE")]
         public async Task<ActionResult<Beteiligte>> GET_ONE(int id)
         {
-            var beteiligte = await _context.beteiligtes.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.beteiligteId == id);
+            var beteiligte = await GetContext().beteiligtes.Include(o => o.objekts).ThenInclude(o2 => o2.gefaehrdungs).FirstOrDefaultAsync(i => i.beteiligteId == id);
 
             if (beteiligte == null)
             {
@@ -56,7 +53,7 @@ namespace TIAE5_DB_Mini.Controllers
             {
                 foreach (Objekt temp in model.objekts)
                 {
-                    Objekt found = await this._context.objekts.FindAsync(temp.objektId);
+                    Objekt found = await this.GetContext().objekts.FindAsync(temp.objektId);
                     if (found != null)
                     {
                         listOfObjets.Add(found);
@@ -70,8 +67,8 @@ namespace TIAE5_DB_Mini.Controllers
 
             model.objekts = listOfObjets;
 
-            _context.beteiligtes.Add(model);
-            await _context.SaveChangesAsync();
+            GetContext().beteiligtes.Add(model);
+            await GetContext().SaveChangesAsync();
 
             return CreatedAtAction("GET_ONE", new { id = model.beteiligteId }, model);
         }
@@ -94,7 +91,7 @@ namespace TIAE5_DB_Mini.Controllers
             {
                 foreach (Objekt temp in beteiligte.objekts)
                 {
-                    Objekt found = await this._context.objekts.FindAsync(temp.objektId);
+                    Objekt found = await this.GetContext().objekts.FindAsync(temp.objektId);
                     if (found != null)
                     {
                         listOfObjets.Add(found);
@@ -108,11 +105,11 @@ namespace TIAE5_DB_Mini.Controllers
 
             beteiligte.objekts = listOfObjets;
 
-            _context.Entry(beteiligte).State = EntityState.Modified;
+            GetContext().Entry(beteiligte).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await GetContext().SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -131,7 +128,7 @@ namespace TIAE5_DB_Mini.Controllers
 
         private bool BeteiligteExists(int id)
         {
-            return _context.beteiligtes.Any(e => e.beteiligteId == id);
+            return GetContext().beteiligtes.Any(e => e.beteiligteId == id);
         }
     }
 }

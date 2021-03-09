@@ -13,7 +13,7 @@ namespace TIAE5_DB_Mini.Models
 
     public class CaseStudyContext : DbContext
     {
-        public CaseStudyContext(DbContextOptions options) : base(options) { }
+        public CaseStudyContext(DbContextOptions<CaseStudyContext> options) : base(options) { }
         public DbSet<Beteiligte> beteiligtes { get; set; }
         public DbSet<Eigentuemer> eigentuemers { get; set; }
         public DbSet<Gefaehrdung> gefaehrdungs { get; set; }
