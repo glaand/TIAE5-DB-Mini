@@ -4,14 +4,55 @@
 * Open SQL Server Management Studio and log in with an admin user
 * Run the following command to create a database to work on
   * `CREATE DATABASE Grundbuchamt;`
-* Run the following commands to create a user and login to access the database
-  * Use `GO` in between these commands or run them separately!
-  * `CREATE LOGIN Grundbuchamt WITH PASSWORD = 'IBZ2021?';`
-  * `CREATE USER Grundbuchamt FOR LOGIN Grundbuchamt;`
-  * `exec sp_addsrvrolemember [Grundbuchamt], sysadmin;`
+* Run the sql script below to create the user required for running this project
 * Make sure your Server accepts SQL Server account logins
   * Right click server, select Properties > Security > Server authentication
   * Select "SQL Server and Windows authentication* 
+
+#### Create users and assign permissions
+```sql
+-- Create an administrative user to create and migrate the
+-- database. Alternatively, adjust the conenction string in
+-- appsettings.json and use your local admin
+CREATE LOGIN Grundbuchamt WITH PASSWORD = 'IBZ2021?';
+GO
+CREATE USER Grundbuchamt FOR LOGIN Grundbuchamt;
+GO
+exec sp_addsrvrolemember [Grundbuchamt], sysadmin;
+GO
+
+-- Create database for case study
+CREATE DATABASE Grundbuchamt;
+GO
+USE Grundbuchamt;
+GO
+
+-- Create external user for people inquiring about buildings
+CREATE LOGIN TIAE5DT_Externer WITH PASSWORD = 'IBZ2022';
+GO
+CREATE USER TIAE5DT_Externer FOR LOGIN TIAE5DT_Externer;
+GO
+GRANT SELECT ON beteiligtes TO TIAE5DT_Externer;
+GRANT SELECT ON eigentuemer TO TIAE5DT_Externer;
+GRANT SELECT ON gefaehrdungs TO TIAE5DT_Externer;
+GRANT SELECT ON grundbuchamt TO TIAE5DT_Externer;
+GRANT SELECT ON mitarbeiter TO TIAE5DT_Externer;
+GRANT SELECT ON objekts TO TIAE5DT_Externer;
+GRANT SELECT ON BeteiligteObjekt TO TIAE5DT_Externer;
+
+-- Create internal user for employees of the department
+CREATE LOGIN TIAE5DT_Interner WITH PASSWORD = 'IBZ2022';
+GO
+CREATE USER TIAE5DT_Interner FOR LOGIN TIAE5DT_Interner;
+GO
+GRANT SELECT ON beteiligtes TO TIAE5DT_Interner;
+GRANT SELECT, INSERT ON eigentuemer TO TIAE5DT_Interner;
+GRANT SELECT, INSERT, DELETE ON gefaehrdungs TO TIAE5DT_Interner;
+GRANT SELECT, INSERT ON grundbuchamt TO TIAE5DT_Interner;
+GRANT SELECT ON mitarbeiter TO TIAE5DT_Interner;
+GRANT SELECT, INSERT, UPDATE ON objekts TO TIAE5DT_Interner;
+GRANT SELECT ON BeteiligteObjekt TO TIAE5DT_Interner;
+```
 
 ## Generate the database from Visual Studio
 * Open the project in visual studio
