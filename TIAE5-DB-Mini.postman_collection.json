@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "61d8e681-1a09-4a9c-aefc-43b44d9bdbf0",
+		"_postman_id": "5a607947-6e31-4e19-a325-e0905d19e6fb",
 		"name": "TIAE5-DT Normfallstudie",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -34,7 +34,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"raw": "http://localhost:22759/api/Gefaehrdungs/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -42,7 +42,8 @@
 							"port": "22759",
 							"path": [
 								"api",
-								"Gefaehrdungs"
+								"Gefaehrdungs",
+								"1"
 							]
 						}
 					},
@@ -74,7 +75,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"raw": "http://localhost:22759/api/Objekts/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -82,7 +83,8 @@
 							"port": "22759",
 							"path": [
 								"api",
-								"Gefaehrdungs"
+								"Objekts",
+								"1"
 							]
 						}
 					},
@@ -94,7 +96,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"raw": "http://localhost:22759/api/Beteiligtes",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -102,7 +104,7 @@
 							"port": "22759",
 							"path": [
 								"api",
-								"Gefaehrdungs"
+								"Beteiligtes"
 							]
 						}
 					},
@@ -114,7 +116,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"raw": "http://localhost:22759/api/Beteiligtes/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -122,7 +124,8 @@
 							"port": "22759",
 							"path": [
 								"api",
-								"Gefaehrdungs"
+								"Beteiligtes",
+								"1"
 							]
 						}
 					},
@@ -134,7 +137,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"raw": "http://localhost:22759/api/Grundbuchamts",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -142,7 +145,7 @@
 							"port": "22759",
 							"path": [
 								"api",
-								"Gefaehrdungs"
+								"Grundbuchamts"
 							]
 						}
 					},
@@ -174,7 +177,18 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:22759/api/Eigentuemers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Eigentuemers"
+							]
+						}
 					},
 					"response": []
 				},
@@ -204,7 +218,18 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:22759/api/Mitarbeiters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Mitarbeiters"
+							]
+						}
 					},
 					"response": []
 				},
@@ -213,7 +238,19 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:22759/api/Mitarbeiters/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Mitarbeiters",
+								"2"
+							]
+						}
 					},
 					"response": []
 				}
@@ -314,7 +351,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"gefaehrdungsstufe\": 4,\r\n    \"beschreibung\": \"Schwefel\",\r\n    \"hatVerfuegung\": false\r\n}\r\n",
+							"raw": "{\r\n\t\"laengengrad\": 90.0,\r\n\t\"breitengrad\": 90.0,\r\n\t\"laenge\": 110.0,\r\n\t\"breite\": 90.0,\r\n\t\"flache\": 333.0,\r\n\t\"gefaehrdungs\": [{\"gefaehrdungId\": 2}]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -322,7 +359,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"raw": "http://localhost:22759/api/Objekts",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -330,7 +367,7 @@
 							"port": "22759",
 							"path": [
 								"api",
-								"Gefaehrdungs"
+								"Objekts"
 							]
 						}
 					},
@@ -339,9 +376,30 @@
 				{
 					"name": "Objekt updaten",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"objektId\": 1,\r\n\t\"laengengrad\": 90.0,\r\n\t\"breitengrad\": 90.0,\r\n\t\"laenge\": 110.0,\r\n\t\"breite\": 90.0,\r\n\t\"flache\": 7777777.0,\r\n\t\"gefaehrdungs\": [{\"gefaehrdungId\": 2}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:22759/api/Objekts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Objekts",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -352,7 +410,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"gefaehrdungsstufe\": 4,\r\n    \"beschreibung\": \"Schwefel\",\r\n    \"hatVerfuegung\": false\r\n}\r\n",
+							"raw": "{\r\n    \"email\": \"inspektor.max@grundbuchamt.gr.ch\",\r\n    \"telefon\": \"081 254 00 01\",\r\n    \"amtskennung\": \"GR Chur\",\r\n    \"objekts\": [ {\"objektId\": 2} ]\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -360,7 +418,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"raw": "http://localhost:22759/api/Grundbuchamts",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -368,7 +426,7 @@
 							"port": "22759",
 							"path": [
 								"api",
-								"Gefaehrdungs"
+								"Grundbuchamts"
 							]
 						}
 					},
@@ -381,7 +439,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"Karlheinz\",\r\n    \"telefon\": \"Keller\",\r\n    \"juristischePerson\": false\r\n}\r\n",
+							"raw": "{\r\n    \"email\": \"reichermann@land.ch\",\r\n    \"telefon\": \"048 728 93 88\",\r\n    \"juristischePerson\": false,\r\n    \"objekts\": [ {\"objektId\": 2 } ]\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -410,7 +468,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"Karlheinz\",\r\n    \"telefon\": \"Keller\",\r\n    \"juristischePerson\": false\r\n}\r\n",
+							"raw": "{\r\n    \"email\": \"Karlheinz\",\r\n    \"telefon\": \"044 912 83 92\",\r\n    \"badgeNummer\": \"100\",\r\n    \"lohnProMonat\": \"10000\",\r\n    \"objekts\": [ { \"objektId\": 2 } ]\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -418,7 +476,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:22759/api/Eigentuemers",
+							"raw": "http://localhost:22759/api/Mitarbeiters",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -426,7 +484,7 @@
 							"port": "22759",
 							"path": [
 								"api",
-								"Eigentuemers"
+								"Mitarbeiters"
 							]
 						}
 					},
