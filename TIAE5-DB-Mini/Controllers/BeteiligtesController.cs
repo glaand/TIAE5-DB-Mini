@@ -76,6 +76,59 @@ namespace TIAE5_DB_Mini.Controllers
             return CreatedAtAction("GET_ONE", new { id = model.beteiligteId }, model);
         }
 
+        // PUT: api/Beteiligtes/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPut("{id}")]
+        [ActionName("PUT")]
+        public async Task<IActionResult> PUT(int id, Beteiligte beteiligte)
+        {
+            if (id != beteiligte.beteiligteId)
+            {
+                return BadRequest();
+            }
+
+            List<Objekt> listOfObjets = new List<Objekt>();
+
+            if (beteiligte.objekts != null)
+            {
+                foreach (Objekt temp in beteiligte.objekts)
+                {
+                    Objekt found = await this._context.objekts.FindAsync(temp.objektId);
+                    if (found != null)
+                    {
+                        listOfObjets.Add(found);
+                    }
+                    else
+                    {
+                        throw new Exception("Objekt existiert nicht. Bitte Objekt zuerst erstellen.");
+                    }
+                }
+            }
+
+            beteiligte.objekts = listOfObjets;
+
+            _context.Entry(beteiligte).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BeteiligteExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
         private bool BeteiligteExists(int id)
         {
             return _context.beteiligtes.Any(e => e.beteiligteId == id);

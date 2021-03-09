@@ -489,6 +489,36 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Beteiligte updaten",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"beteiligteId\": 1,\r\n    \"email\": \"sven@kontakt.ch\",\r\n    \"telefon\": \"2893748932\",\r\n    \"objekts\": [ {\"objektId\": 3} ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:22759/api/Beteiligtes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Beteiligtes",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"auth": {
