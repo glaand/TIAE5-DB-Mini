@@ -11,11 +11,10 @@ namespace TIAE5_DB_Mini.Models
     {
         public int gefaehrdungId { get; set; }
 
-        [Required]
-        public UInt16 gefaehrdungsstufe { get; set; }
+        public String beschreibung { get; set; }
 
         [Required]
-        public String beschreibung { get; set; }
+        public UInt16 gefaehrdungsstufe { get; set; }
 
         [Required]
         public bool hatVerfuegung { get; set; }

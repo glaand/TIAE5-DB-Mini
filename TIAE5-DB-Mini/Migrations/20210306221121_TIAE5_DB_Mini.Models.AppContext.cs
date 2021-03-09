@@ -149,7 +149,7 @@ namespace TIAE5_DB_Mini.Migrations
                     gefaehrdungId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     gefaehrdungsstufe = table.Column<int>(type: "int", nullable: false),
-                    beschreibung = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    beschreibung = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     hatVerfuegung = table.Column<bool>(type: "bit", nullable: false),
                     objektId = table.Column<int>(type: "int", nullable: true)
                 },
