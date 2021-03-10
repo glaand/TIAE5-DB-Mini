@@ -1,15 +1,13 @@
 # TIAE5 DB Mini
 
-## The the SQL Server ready for the project
+## Project setup
+### 1. Get the SQL Server ready for the project
 * Open SQL Server Management Studio and log in with an admin user
-* Run the following command to create a database to work on
-  * `CREATE DATABASE Grundbuchamt;`
-* Run the sql script below to create the user required for running this project
+* Run the sql script below to create the user and database required
 * Make sure your Server accepts SQL Server account logins
   * Right click server, select Properties > Security > Server authentication
   * Select "SQL Server and Windows authentication* 
 
-#### Create users and assign permissions
 ```sql
 -- Create an administrative user to create and migrate the
 -- database. Alternatively, adjust the conenction string in
@@ -23,7 +21,18 @@ GO
 
 -- Create database for case study
 CREATE DATABASE Grundbuchamt;
-GO
+```
+
+### 2. Generate the database from Visual Studio
+* Open the project in Visual Studio
+* In the top menu, select Tools > NuGet Package Manager > Package Manager console
+* Execute the following command to set up and populate database
+  * `EntityFrameworkCore\Update-Database`
+
+### 3. Create users for runtime and grant them permissions
+For a transparent setup to the administrator, we decided not to include permissions in the automated database migrations. Run the following with the user created above or your sysadmin to set up logins and users with access to the database.
+
+```sql
 USE Grundbuchamt;
 GO
 
@@ -54,21 +63,26 @@ GRANT SELECT, INSERT, UPDATE ON objekts TO TIAE5DT_Interner;
 GRANT SELECT, INSERT, DELETE ON BeteiligteObjekt TO TIAE5DT_Interner;
 ```
 
-## Generate the database from Visual Studio
-* Open the project in visual studio
-* In the top menu, select Tools > NuGet Package Manager > Package Manager console
-* Execute the following command to set up and populate database
-  * `EntityFrameworkCore\Update-Database`
-* Execute the following command to re-generate migrations (only for development)
+### 4. Start the project
+* Go back to visual studio and run the project
+  * If you are using the express installation of SQL Server, change the `"server=.` to `"server=.\\SQLEXPRESS` in the project's `appsettings.json`.
+
+---
+
+## Additional notes
+
+### Re-generating migrations during development
+* Execute the following command in the NuGet console to re-generate migrations
   * `EntityFrameworkCore\Add-Migration TIAE5_DB_Mini.Models.AppContext`
 
-## Using different database credentials
+### Using different database credentials
 If you are using a different database connection string locally, do not commit these changes to the repository. To be very sure, just ignore changes to the appsettings locally (`git update-index --assume-unchanged TIAE5-DB-Mini/appsettings.json`)
 
-## See all available routes
-If you want to see all available routes, please visit go to the following URL Path:
+### See all available resources
+If you want to see all available resources, please visit go to the following URL Path: `<hostname>/`
 
-`<hostname>/`
+You should see an output like this:
 
-You should see something like this:
 ![](https://i.imgur.com/mZ4o5Jp.png)
+
+For getting the actual routes for each resource, consult the Postman Collection.
