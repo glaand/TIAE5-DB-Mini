@@ -27,7 +27,7 @@ CREATE DATABASE Grundbuchamt;
 * Open the project in Visual Studio
 * In the top menu, select Tools > NuGet Package Manager > Package Manager console
 * Execute the following command to set up and populate database
-  * `EntityFrameworkCore\Update-Database`
+  * `EntityFrameworkCore\Update-Database -Context CaseStudyContext`
 
 ### 3. Create users for runtime and grant them permissions
 For a transparent setup to the administrator, we decided not to include permissions in the automated database migrations. Run the following with the user created above or your sysadmin to set up logins and users with access to the database.
