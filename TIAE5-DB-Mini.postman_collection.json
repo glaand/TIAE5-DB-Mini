@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5a607947-6e31-4e19-a325-e0905d19e6fb",
+		"_postman_id": "98321214-1c29-405a-8895-95d14ddc2e14",
 		"name": "TIAE5-DT Normfallstudie",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -50,6 +50,56 @@
 					"response": []
 				},
 				{
+					"name": "Gefährdung erstellen (11)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"gefaehrdungsstufe\": 4,\r\n    \"beschreibung\": \"Schwefel\",\r\n    \"hatVerfuegung\": false\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:22759/api/Gefaehrdungs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Gefaehrdungs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gefährdung löschen (12)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:22759/api/Gefaehrdungs/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Gefaehrdungs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Objekte auflisten",
 					"request": {
 						"method": "GET",
@@ -70,7 +120,7 @@
 					"response": []
 				},
 				{
-					"name": "Objekt anzeigen",
+					"name": "Objekt anzeigen (5)",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -91,7 +141,66 @@
 					"response": []
 				},
 				{
-					"name": "Beteiligte auflisten",
+					"name": "Objekt erstellen (6)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"laengengrad\": 90.0,\r\n\t\"breitengrad\": 90.0,\r\n\t\"laenge\": 110.0,\r\n\t\"breite\": 90.0,\r\n\t\"flache\": 333.0,\r\n\t\"gefaehrdungs\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:22759/api/Objekts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Objekts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Objekt updaten (7)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"objektId\": 1,\r\n\t\"laengengrad\": 90.0,\r\n\t\"breitengrad\": 30.0,\r\n\t\"laenge\": 110.0,\r\n\t\"breite\": 90.0,\r\n\t\"flache\": 7777777.0,\r\n\t\"gefaehrdungs\": [{\"gefaehrdungId\": 2}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:22759/api/Objekts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Objekts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Beteiligte auflisten (2)",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -295,7 +404,27 @@
 			"name": "Grundbuchamt",
 			"item": [
 				{
-					"name": "Gefährdung erstellen",
+					"name": "Beteiligte auflisten (1)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:22759/api/Beteiligtes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Beteiligtes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gefährdung erstellen (8)",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -324,7 +453,7 @@
 					"response": []
 				},
 				{
-					"name": "Gefährdung löschen",
+					"name": "Gefährdung löschen (10)",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -345,13 +474,13 @@
 					"response": []
 				},
 				{
-					"name": "Objekt erstellen",
+					"name": "Objekt erstellen (3)",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"laengengrad\": 90.0,\r\n\t\"breitengrad\": 90.0,\r\n\t\"laenge\": 110.0,\r\n\t\"breite\": 90.0,\r\n\t\"flache\": 333.0,\r\n\t\"gefaehrdungs\": [{\"gefaehrdungId\": 2}]\r\n}",
+							"raw": "{\r\n\t\"laengengrad\": 90.0,\r\n\t\"breitengrad\": 90.0,\r\n\t\"laenge\": 110.0,\r\n\t\"breite\": 90.0,\r\n\t\"flache\": 333.0,\r\n\t\"gefaehrdungs\": []\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -374,13 +503,64 @@
 					"response": []
 				},
 				{
-					"name": "Objekt updaten",
+					"name": "Objekt anzeigen (13)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:22759/api/Objekts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Objekts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Objekt updaten (4)",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"objektId\": 1,\r\n\t\"laengengrad\": 90.0,\r\n\t\"breitengrad\": 90.0,\r\n\t\"laenge\": 110.0,\r\n\t\"breite\": 90.0,\r\n\t\"flache\": 7777777.0,\r\n\t\"gefaehrdungs\": [{\"gefaehrdungId\": 2}]\r\n}",
+							"raw": "{\r\n\t\"objektId\": 1,\r\n\t\"laengengrad\": 90.0,\r\n\t\"breitengrad\": 30.0,\r\n\t\"laenge\": 110.0,\r\n\t\"breite\": 90.0,\r\n\t\"flache\": 7777777.0,\r\n\t\"gefaehrdungs\": [{\"gefaehrdungId\": 2}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:22759/api/Objekts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "22759",
+							"path": [
+								"api",
+								"Objekts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Objekt updaten (9)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"objektId\": 1,\r\n\t\"laengengrad\": 90.0,\r\n\t\"breitengrad\": 30.0,\r\n\t\"laenge\": 110.0,\r\n\t\"breite\": 90.0,\r\n\t\"flache\": 7777777.0,\r\n\t\"gefaehrdungs\": [{\"gefaehrdungId\": 2}]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -525,13 +705,13 @@
 				"type": "basic",
 				"basic": [
 					{
-						"key": "password",
-						"value": "password",
+						"key": "username",
+						"value": "interner",
 						"type": "string"
 					},
 					{
-						"key": "username",
-						"value": "grundbuchamt",
+						"key": "password",
+						"value": "password",
 						"type": "string"
 					}
 				]
